@@ -1,5 +1,4 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router'
-import { Button } from './components/ui/button'
 
 function App() {
   const router = createBrowserRouter(
@@ -13,9 +12,6 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
-      <div>
-        <Button className='bg-our-brown-200'>Test</Button>
-      </div>
     </>
   )
 }
