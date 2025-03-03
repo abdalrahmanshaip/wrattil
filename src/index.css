@@ -1,9 +1,19 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --color-our-white-100: #ffffff;
+  --color-our-white-200: #f5f5f5;
+  --color-our-black: #1e1e1e;
+  --color-our-brown-100: #f1ddd3;
+  --color-our-brown-200: #ba5624;
+  --color-our-brown-300: #d69a7c;
+  --color-our-brown-400: #381a0b;
+  --color-our-yellow: #f9c83a;
+}
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -122,4 +132,3 @@
     @apply bg-background text-foreground;
   }
 }
-

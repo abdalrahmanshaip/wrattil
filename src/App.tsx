@@ -14,7 +14,7 @@ function App() {
     <>
       <RouterProvider router={router} />
       <div>
-        <Button>Test</Button>
+        <Button className='bg-our-brown-200'>Test</Button>
       </div>
     </>
   )
