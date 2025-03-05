@@ -13,6 +13,11 @@
   --color-our-brown-300: #d69a7c;
   --color-our-brown-400: #381a0b;
   --color-our-yellow: #f9c83a;
+  --color-our-gray: #777777;
+  --color-our-pink: #e56399;
+  --color-our-green: #43c553;
+  --color-our-orange: #ed7014;
+  --color-our-blue: #1e69d9;
 }
 :root {
   --background: oklch(1 0 0);

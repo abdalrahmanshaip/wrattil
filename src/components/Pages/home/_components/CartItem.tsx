@@ -16,7 +16,7 @@ const CartItem = ({ item }: { item: ItemProps }) => {
       <div className='flex items-center gap-5'>
         <img
           src={item.image}
-          alt='القرآن الكريم'
+          alt={item.title}
           width={60}
           height={60}
         />

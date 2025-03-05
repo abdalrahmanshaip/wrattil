@@ -3,5 +3,21 @@ import Questions from './Questions.svg'
 import Boy from './Boy.svg'
 import Control from './Control.svg'
 import Warning from './Warning.svg'
+import BGPink from './BGPink.svg'
+import BGGreen from './BGGreen.svg'
+import BGBlue from './BGBlue.svg'
+import BGOrange from './BGOrange.svg'
+import BGYellow from './BGYellow.svg'
 
-export { QuranBook, Questions, Boy, Warning, Control }
+export {
+  QuranBook,
+  Questions,
+  Boy,
+  Warning,
+  Control,
+  BGPink,
+  BGGreen,
+  BGBlue,
+  BGOrange,
+  BGYellow
+}
