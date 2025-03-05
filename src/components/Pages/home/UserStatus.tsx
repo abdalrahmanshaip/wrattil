@@ -1,4 +1,5 @@
 import { BGBlue, BGGreen, BGOrange, BGPink, BGYellow } from '@/assets'
+import UserStatusItem from './_components/UserStatusItem'
 
 const UserStatus = () => {
   const statusData = [
@@ -12,22 +13,10 @@ const UserStatus = () => {
     <div className='p-12 bg-our-white-100 flex gap-6 rounded-2xl w-full'>
       {statusData.map((item, index) => {
         return (
-          <div
+          <UserStatusItem
             key={index}
-            className='text-center flex flex-col justify-between items-center'
-          >
-            <img
-              src={item.image}
-              width={50}
-              alt={item.title}
-            />
-            <div>
-              <p className={`font-semibold text-2xl ${item.color}`}>
-                {item.number}
-              </p>
-              <p className='text-xl font-medium text-our-gray'>{item.title}</p>
-            </div>
-          </div>
+            item={item}
+          />
         )
       })}
     </div>
