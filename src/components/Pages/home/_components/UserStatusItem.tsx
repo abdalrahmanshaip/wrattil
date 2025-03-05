@@ -6,7 +6,7 @@ interface UserStatusProp {
 }
 const UserStatusItem = ({ item }: { item: UserStatusProp }) => {
   return (
-    <div className='text-center flex flex-col justify-between items-center'>
+    <div className='text-center flex flex-col justify-between items-center mx-auto'>
       <img
         src={item.image}
         width={50}

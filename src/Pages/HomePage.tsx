@@ -4,7 +4,7 @@ import { Layout } from '@/Layouts'
 const HomePage = () => {
   return (
     <Layout>
-      <div className='flex gap-6'>
+      <div className='flex 2xl:flex-row flex-col  gap-6'>
         <div className='space-y-10'>
           <Quran />
           <Tajweed />
