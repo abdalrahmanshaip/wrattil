@@ -1,4 +1,4 @@
-import { Quran, Supervisor, Tajweed, UserStatus } from '@/components/Pages/home'
+import { Chart, Quran, Supervisor, Tajweed, UserStatus } from '@/components/Pages/home'
 import { Layout } from '@/Layouts'
 
 const HomePage = () => {
@@ -10,8 +10,9 @@ const HomePage = () => {
           <Tajweed />
           <Supervisor />
         </div>
-        <div>
+        <div className='space-y-5'>
           <UserStatus />
+          <Chart />
         </div>
       </div>
     </Layout>
