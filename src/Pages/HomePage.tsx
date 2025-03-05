@@ -1,11 +1,14 @@
-import { Quran } from "@/components/Pages/home"
-import { Layout } from "@/Layouts"
+import { Quran, Tajweed } from '@/components/Pages/home'
+import { Layout } from '@/Layouts'
 
 const HomePage = () => {
   return (
-   <Layout>
-      <Quran />
-   </Layout>
+    <Layout>
+      <div className='space-y-10'>
+        <Quran />
+        <Tajweed />
+      </div>
+    </Layout>
   )
 }
 

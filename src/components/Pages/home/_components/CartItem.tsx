@@ -11,7 +11,7 @@ const CartItem = ({ item }: { item: ItemProps }) => {
   return (
     <Link
       to={item.href}
-      className='rounded-2xl py-20 px-10 bg-our-white-100 flex items-center justify-between gap-32'
+      className='rounded-2xl py-20 px-10 bg-our-white-100 flex items-center justify-between w-xl'
     >
       <div className='flex items-center gap-5'>
         <img

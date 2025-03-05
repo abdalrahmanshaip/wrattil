@@ -1,14 +1,14 @@
-import { Questions, QuranBook } from '@/assets'
+import { Boy, Questions } from '@/assets'
 import CartItem from './_components/CartItem'
 
-const Quran = () => {
+const Tajweed = () => {
   const quranCards = [
-    { image: QuranBook, title: 'عرض طلاب القرآن الكريم', href: '/test' },
-    { image: Questions, title: 'بنك الأسئلة للقرآن الكريم', href: '/test' },
+    { image: Boy, title: 'عرض طلاب التجويد', href: '/test' },
+    { image: Questions, title: 'بنك الأسئلة للتجويد', href: '/test' },
   ]
   return (
     <div className='space-y-4'>
-      <p className='text-black font-normal text-2xl'>القرآن الكريم</p>
+      <p className='text-black font-normal text-2xl'>التجويد</p>
       <div className='flex items-center gap-4'>
         {quranCards.map((item, index) => {
           return (
@@ -23,4 +23,4 @@ const Quran = () => {
   )
 }
 
-export default Quran
+export default Tajweed
