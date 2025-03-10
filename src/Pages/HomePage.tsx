@@ -1,4 +1,4 @@
-import { Chart, Quran, Supervisor, Tajweed, UserStatus } from '@/components/Pages/home'
+import { Chart, Quran, Supervisor, Tajweed, UserStatus } from '@/components/Pages/Home'
 import { Layout } from '@/Layouts'
 
 const HomePage = () => {

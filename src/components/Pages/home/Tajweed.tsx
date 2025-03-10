@@ -3,7 +3,7 @@ import CartItem from './_components/CartItem'
 
 const Tajweed = () => {
   const quranCards = [
-    { image: Boy, title: 'عرض طلاب التجويد', href: '/test' },
+    { image: Boy, title: 'عرض طلاب التجويد', href: '/tajweed' },
     { image: Questions, title: 'بنك الأسئلة للتجويد', href: '/test' },
   ]
   return (

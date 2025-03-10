@@ -5,7 +5,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
     <div className='flex p-6 overflow-hidden'>
       <aside className='h-screen w-[14%]'>Sidebar</aside>
       <div className='w-full'>
-        <div className='mb-20'>Navbar</div>
+        <div className='pb-10'>Navbar</div>
         <div>{children}</div>
       </div>
     </div>
