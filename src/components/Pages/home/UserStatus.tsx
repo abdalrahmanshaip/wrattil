@@ -10,7 +10,7 @@ const UserStatus = () => {
     { image: BGPink, number: 44, color: 'text-our-pink', title: 'مشرف' },
   ]
   return (
-    <div className='p-12 bg-our-white-100 flex gap-6 rounded-2xl w-full'>
+    <div className='p-12 bg-our-white-100 flex gap-6 rounded-2xl w-full sm:flex-row flex-col'>
       {statusData.map((item, index) => {
         return (
           <UserStatusItem
