@@ -1,5 +1,6 @@
 import { Avatar } from '@/assets' // Ensure the path is correct
 import { Input } from '@/components/ui/input'
+import { Search } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -18,6 +19,7 @@ function Navbar() {
           placeholder='ابحث عن طلب'
           className='pr-4  border py-6 bg-white rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-300 w-full text-gray-700'
         />
+        <Search className='absolute left-4 top-4' color='gray' size={20}/>
       </div>
 
       {/* Right Section - User Profile */}
@@ -30,8 +32,8 @@ function Navbar() {
               </span>
               <img
                 src={Avatar}
-                alt='Logo'
-                className='w-10 h-10 rounded-xl '
+                alt='avatar'
+                className='w-10 h-10 rounded-xl'
               />
             </button>
           </DropdownMenuTrigger>
