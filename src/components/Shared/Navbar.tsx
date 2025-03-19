@@ -13,9 +13,9 @@ function Navbar() {
     <header className="w-full h-16 bg-transparent px-8 py-3 flex items-center justify-between z-30 fixed top-0 left-0">
       {/* Left Section - Logo */}
       <div className="flex items-center gap-2">
-        <img src={wrattil} alt="Logo" className="w-10 h-10" />
+        <img src={wrattil} alt="Logo" className="w-8 h-8  rounded-2xl" />
         <span className="text-xs font-bold text-orange-600">
-          ورتـــــــــــــل
+          ورتــــــــــــــــــــــــــــــــل
         </span>
       </div>
 
@@ -29,7 +29,7 @@ function Navbar() {
       </div>
 
       {/* Right Section - User Profile */}
-      <div className="flex items-center gap-6">
+      <div className="relative  max-w-xl">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button className="flex items-center gap-1 cursor-pointer hover:bg-blue-100 hover:text-blue-700 p-1 rounded-md bg-white">
