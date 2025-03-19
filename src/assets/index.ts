@@ -8,6 +8,8 @@ import BGGreen from './BGGreen.svg'
 import BGBlue from './BGBlue.svg'
 import BGOrange from './BGOrange.svg'
 import BGYellow from './BGYellow.svg'
+import Avatar from './Avatar.svg'
+import Logo from './Logo.svg'
 
 export {
   QuranBook,
@@ -19,5 +21,7 @@ export {
   BGGreen,
   BGBlue,
   BGOrange,
-  BGYellow
+  BGYellow,
+  Avatar,
+  Logo
 }
