@@ -1,18 +1,22 @@
-
-
-import { Search, User, Menu } from "lucide-react";
+import { User } from "lucide-react";
 import wrattil from "../../assets/wrattil.png"; // Ensure the path is correct
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 
 function Navbar() {
   return (
-    <header className="w-full h-16 bg-white px-6 shadow-md flex items-center justify-between z-20 border-b fixed top-0 left-0">
+    <header className="w-full h-16 bg-transparent px-8 py-3 flex items-center justify-between z-30 fixed top-0 left-0">
       {/* Left Section - Logo */}
       <div className="flex items-center gap-2">
         <img src={wrattil} alt="Logo" className="w-10 h-10" />
-        <span className="text-xl font-bold text-orange-600">ورتل</span>
+        <span className="text-xs font-bold text-orange-600">
+          ورتـــــــــــــل
+        </span>
       </div>
 
       {/* Center Section - Search Bar */}
@@ -20,31 +24,37 @@ function Navbar() {
         <Input
           type="text"
           placeholder="ابحث عن طلب"
-          className="pl-10 pr-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-300 w-full text-gray-700"
+          className="pl-4 pr-4 py-2 border bg-white rounded-full focus:outline-none focus:ring-2 focus:ring-blue-300 w-full text-gray-700"
         />
-        <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
       </div>
 
       {/* Right Section - User Profile */}
       <div className="flex items-center gap-6">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="flex items-center gap-2 cursor-pointer">
-              <User className="w-10 h-10 text-gray-700" />
-              <span className="text-gray-700 font-medium">عمر محمدي</span>
+            <button className="flex items-center gap-1 cursor-pointer hover:bg-blue-100 hover:text-blue-700 p-1 rounded-md bg-white">
+           
+              <span className="text-xs text-gray-700 font-medium px-1 py-0.5 rounded-md">
+                عمر محمدي
+              </span>
+              <img src={wrattil} alt="Logo" className="w-6 h-6 rounded-xl " />
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-48">
-            <DropdownMenuItem>الملف الشخصي</DropdownMenuItem>
-            <DropdownMenuItem>الإعدادات</DropdownMenuItem>
-            <DropdownMenuItem>تسجيل الخروج</DropdownMenuItem>
+          <DropdownMenuContent
+            align="end"
+            className="w-40 bg-white shadow-md rounded-md border"
+          >
+            <DropdownMenuItem className="text-xs hover:bg-gray-100 px-2 py-1 rounded-md">
+              الملف الشخصي
+            </DropdownMenuItem>
+            <DropdownMenuItem className="text-xs hover:bg-gray-100 px-2 py-1 rounded-md">
+              الإعدادات
+            </DropdownMenuItem>
+            <DropdownMenuItem className="text-xs hover:bg-red-100 text-red-600 px-2 py-1 rounded-md">
+              تسجيل الخروج
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-
-        {/* Sidebar Toggle Button (if needed) */}
-        <Button variant="ghost" size="icon">
-          <Menu className="w-6 h-6 text-gray-700" />
-        </Button>
       </div>
     </header>
   );
