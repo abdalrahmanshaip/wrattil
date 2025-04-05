@@ -15,6 +15,8 @@ import {
 } from '@/components/ui/table'
 
 import { Pencil, Trash2, Eye } from 'lucide-react'
+import UploadFile from './UploadFile'
+import Moderators from './Moderators'
 
 // ✅ تعريف نوع البيانات
 type Student = {
@@ -184,7 +186,10 @@ export function DataTable() {
 
   return (
     <div>
-      <h1 className='text-2xl font-bold mb-4'>Tajweed Page</h1>
+      <div className='flex justify-between items-center mb-4'>
+        <Moderators />
+        <UploadFile />
+      </div>
       <div className='rounded-lg border border-gray-300 shadow-sm p-4'>
         <Table>
           <TableHeader className='bg-[#F1DDD3] text-center'>

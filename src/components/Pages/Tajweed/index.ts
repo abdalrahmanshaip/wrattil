@@ -1,3 +1,5 @@
 import DataTable from './DataTable'
+import UploadFile from './UploadFile'
+import Moderators from './Moderators'
 
-export { DataTable }
+export { DataTable, UploadFile, Moderators }
