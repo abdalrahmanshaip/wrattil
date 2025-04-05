@@ -1,9 +1,10 @@
+import { Track } from "@/components/Pages/Quran"
 import { Layout } from "@/Layouts"
 
 const QuranPage = () => {
   return (
     <Layout>
-      asd
+      <Track />
     </Layout>
   )
 }
