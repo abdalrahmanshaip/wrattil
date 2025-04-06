@@ -1,5 +1,5 @@
 import DataTable from './DataTable'
-import UploadFile from './UploadFile'
+import LeftButton from './LeftButton'
 import Moderators from './Moderators'
 
-export { DataTable, UploadFile, Moderators }
+export { DataTable, LeftButton, Moderators }

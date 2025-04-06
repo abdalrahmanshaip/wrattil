@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/table'
 
 import { Pencil, Trash2, Eye } from 'lucide-react'
-import UploadFile from './UploadFile'
+import LeftButton from './LeftButton'
 import Moderators from './Moderators'
 
 // ✅ تعريف نوع البيانات
@@ -188,7 +188,7 @@ export function DataTable() {
     <div>
       <div className='flex justify-between items-center mb-4'>
         <Moderators />
-        <UploadFile />
+        <LeftButton />
       </div>
       <div className='rounded-lg border border-gray-300 shadow-sm p-4'>
         <Table>
