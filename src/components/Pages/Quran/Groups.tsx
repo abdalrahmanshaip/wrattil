@@ -1,4 +1,3 @@
-import { Cards } from '@/components/Shared'
 import { Button } from '@/components/ui/button'
 import {
   Select,
@@ -9,9 +8,9 @@ import {
 } from '@/components/ui/select'
 import { Plus } from 'lucide-react'
 import SharedSelectItem from './_components/SharedSelectItem'
-import AddTrack from './AddTrack'
-const Track = () => {
-  const groups = [
+import { Cards } from '@/components/Shared'
+const Groups = () => {
+  const tracks = [
     { name: 'المسار الأول', id: 1 },
     { name: 'المسار الثاني', id: 2 },
     { name: 'المسار الثالث', id: 3 },
@@ -23,12 +22,18 @@ const Track = () => {
     { name: 'الفرقة الثالث', id: 3 },
     { name: 'الفرقة الرابع', id: 4 },
   ]
+  const groups = [
+    { name: 'المجموعة الأول', id: 1 },
+    { name: 'المجموعة الثاني', id: 2 },
+    { name: 'المجموعة الثالث', id: 3 },
+    { name: 'المجموعة الرابع', id: 4 },
+  ]
   return (
     <div className='space-y-6'>
       <div className='flex gap-1.5 items-center lg:flex-row flex-col'>
         <Select onValueChange={(value) => console.log(value)}>
           <SelectTrigger
-            className='w-full bg-our-brown-400 text-white py-[30px] border-none '
+            className='w-full bg-our-black text-white py-[30px] border-none '
             dir='rtl'
           >
             <SelectValue
@@ -38,23 +43,45 @@ const Track = () => {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup dir='rtl'>
-              {groups.map((group, index) => {
+              {tracks.map((track, index) => {
                 return (
                   <SharedSelectItem
                     key={index}
-                    group={group}
+                    group={track}
                   />
                 )
               })}
             </SelectGroup>
           </SelectContent>
         </Select>
-        <AddTrack />
+        <Select onValueChange={(value) => console.log(value)}>
+          <SelectTrigger
+            className='w-full bg-our-brown-400 text-white py-[30px] border-none '
+            dir='rtl'
+          >
+            <SelectValue
+              placeholder='أختر الفرقة'
+              className='text-white'
+            />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup dir='rtl'>
+              {batches.map((batch, index) => {
+                return (
+                  <SharedSelectItem
+                    key={index}
+                    group={batch}
+                  />
+                )
+              })}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
       </div>
       <Cards
-        data={batches}
-        title='المسار الرابع'
-        route='batch'
+        data={groups}
+        title='الفرقة الأولى'
+        route='group'
       />
       <Button
         className='text-lg text-our-white-100 bg-our-brown-200 py-8 w-full rounded-xl'
@@ -67,10 +94,10 @@ const Track = () => {
             size={20}
           />
         </div>
-        إضافة الفرقة
+        إضافة مجموعة
       </Button>
     </div>
   )
 }
 
-export default Track
+export default Groups

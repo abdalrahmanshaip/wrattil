@@ -1,11 +1,12 @@
-import { Layout } from "@/Layouts"
-import { useParams } from "react-router"
+import { Groups } from '@/components/Pages/Quran'
+import { Layout } from '@/Layouts'
+import { useParams } from 'react-router'
 
 const GroupDetails = () => {
-  const {id} = useParams()
+  const { id } = useParams()
   return (
     <Layout>
-      asdasdasdscazxcssdfawaxcccwascqxfqs
+      <Groups />
     </Layout>
   )
 }

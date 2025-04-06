@@ -1,7 +1,7 @@
 import { SelectItem } from '@/components/ui/select'
 import { BatchesProps } from '@/types'
 
-const BatchSelectItem = ({ group }: { group: BatchesProps }) => {
+const SharedSelectItem = ({ group }: { group: BatchesProps }) => {
   return (
     <SelectItem
       value={group.name}
@@ -12,4 +12,4 @@ const BatchSelectItem = ({ group }: { group: BatchesProps }) => {
   )
 }
 
-export default BatchSelectItem
+export default SharedSelectItem

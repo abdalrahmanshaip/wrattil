@@ -1,20 +1,24 @@
 import { Button } from '@/components/ui/button'
 import { BatchesProps } from '@/types'
 import { Edit2, Eye, Trash2 } from 'lucide-react'
+import { Link } from 'react-router'
 
-const BatchItem = ({ group }: { group: BatchesProps }) => {
+const CardItem = ({ data, route }: { data: BatchesProps, route: string }) => {
   return (
     <div className='bg-our-white-100 p-6 rounded-xl flex items-center justify-between'>
-      <p className='font-medium text-xl text-our-black'>{group.name}</p>
+      <p className='font-medium text-xl text-our-black'>{data.name}</p>
       <div className='flex gap-1.5'>
         <Button
           className='bg-our-white-200 rounded-full flex items-center justify-center'
           size={'icon'}
+          asChild
         >
-          <Eye
-            size={20}
-            className='[&_size]:size-5'
-          />
+          <Link to={`/quran/${route}/${data.id}`}>
+            <Eye
+              size={20}
+              className='[&_size]:size-5'
+            />
+          </Link>
         </Button>
         <Button
           className='bg-our-white-200 rounded-full   flex items-center justify-center'
@@ -39,4 +43,4 @@ const BatchItem = ({ group }: { group: BatchesProps }) => {
   )
 }
 
-export default BatchItem
+export default CardItem
