@@ -4,7 +4,7 @@ import { Plus } from 'lucide-react'
 const AddTrack = () => {
   return (
     <Button
-      className='text-lg text-our-white-100 bg-our-brown-200 py-8 rounded-xl'
+      className='text-lg text-our-white-100 bg-our-brown-200 py-8 rounded-xl lg:w-fit w-full'
       size={'lg'}
       variant={'noHover'}
     >

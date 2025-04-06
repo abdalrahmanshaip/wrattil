@@ -19,7 +19,7 @@ const Track = () => {
   ]
   return (
     <div className='space-y-6'>
-      <div className='flex gap-1.5 items-center'>
+      <div className='flex gap-1.5 items-center lg:flex-row flex-col'>
         <Select onValueChange={(value) => console.log(value)}>
           <SelectTrigger
             className='w-full bg-our-brown-400 text-white py-[30px] border-none '

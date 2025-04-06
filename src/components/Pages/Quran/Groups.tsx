@@ -15,7 +15,7 @@ const Groups = ({ groups }: { groups: GroupsProps[] }) => {
           <Trash2 className='text-our-black [&_size]:size-5 ' />
         </Button>
       </div>
-      <div className='grid grid-cols-3 gap-4'>
+      <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-4'>
         {groups.map((group, index) => {
           return (
          <GroupItem group={group} key={index}/>
