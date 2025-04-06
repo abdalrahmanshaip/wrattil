@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button'
-import { GroupsProps } from '@/types'
+import { BatchesProps } from '@/types'
 import { Edit2, Eye, Trash2 } from 'lucide-react'
 
-const GroupItem = ({ group }: { group: GroupsProps }) => {
+const BatchItem = ({ group }: { group: BatchesProps }) => {
   return (
     <div className='bg-our-white-100 p-6 rounded-xl flex items-center justify-between'>
       <p className='font-medium text-xl text-our-black'>{group.name}</p>
@@ -39,4 +39,4 @@ const GroupItem = ({ group }: { group: GroupsProps }) => {
   )
 }
 
-export default GroupItem
+export default BatchItem

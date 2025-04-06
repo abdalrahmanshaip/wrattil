@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button'
-import { GroupsProps } from '@/types'
+import { BatchesProps } from '@/types'
 import { Trash2 } from 'lucide-react'
-import GroupItem from './_components/GroupItem'
+import BatchItem from './_components/BatchItem'
 
-const Groups = ({ groups }: { groups: GroupsProps[] }) => {
+const Batches = ({ groups }: { groups: BatchesProps[] }) => {
   return (
     <div className='space-y-6'>
       <div className='flex justify-between items-center'>
@@ -18,13 +18,15 @@ const Groups = ({ groups }: { groups: GroupsProps[] }) => {
       <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-4'>
         {groups.map((group, index) => {
           return (
-         <GroupItem group={group} key={index}/>
+            <BatchItem
+              group={group}
+              key={index}
+            />
           )
         })}
-    
       </div>
     </div>
   )
 }
 
-export default Groups
+export default Batches

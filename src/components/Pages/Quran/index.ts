@@ -1,5 +1,5 @@
 import Track from './Track'
 import AddTrack from './AddTrack'
-import Groups from './Groups'
+import Batches from './Batches'
 
-export { Track, AddTrack, Groups }
+export { Track, AddTrack, Batches }

@@ -1,4 +1,4 @@
-export interface GroupsProps {
+export interface BatchesProps {
   name: string
   id: number
 }

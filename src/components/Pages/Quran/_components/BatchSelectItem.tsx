@@ -1,7 +1,7 @@
 import { SelectItem } from '@/components/ui/select'
-import { GroupsProps } from '@/types'
+import { BatchesProps } from '@/types'
 
-const GroupSelectItem = ({ group }: { group: GroupsProps }) => {
+const BatchSelectItem = ({ group }: { group: BatchesProps }) => {
   return (
     <SelectItem
       value={group.name}
@@ -12,4 +12,4 @@ const GroupSelectItem = ({ group }: { group: GroupsProps }) => {
   )
 }
 
-export default GroupSelectItem
+export default BatchSelectItem

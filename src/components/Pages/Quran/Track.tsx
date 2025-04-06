@@ -7,9 +7,9 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { Plus } from 'lucide-react'
-import GroupSelectItem from './_components/GroupSelectItem'
+import BatchSelectItem from './_components/BatchSelectItem'
 import AddTrack from './AddTrack'
-import Groups from './Groups'
+import Batches from './Batches'
 const Track = () => {
   const groups = [
     { name: 'المسار الأول', id: 1 },
@@ -34,7 +34,7 @@ const Track = () => {
             <SelectGroup dir='rtl'>
               {groups.map((group, index) => {
                 return (
-                  <GroupSelectItem
+                  <BatchSelectItem
                     key={index}
                     group={group}
                   />
@@ -45,7 +45,7 @@ const Track = () => {
         </Select>
         <AddTrack />
       </div>
-      <Groups groups={groups} />
+      <Batches groups={groups} />
       <Button
         className='text-lg text-our-white-100 bg-our-brown-200 py-8 w-full rounded-xl'
         size={'lg'}
