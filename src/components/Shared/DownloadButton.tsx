@@ -1,12 +1,22 @@
 import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 import { Download } from 'lucide-react'
 
-const DownloadButton: React.FC<
-  React.ButtonHTMLAttributes<HTMLButtonElement>
-> = (props) => {
+interface DownloadButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  className?: string
+}
+
+const DownloadButton: React.FC<DownloadButtonProps> = ({
+  className,
+  ...props
+}) => {
   return (
     <Button
-      className='text-lg text-our-white-100 bg-our-brown-200 py-6 w-44 rounded-xl'
+      className={cn(
+        'text-lg text-our-white-100 bg-our-brown-200 py-6 w-44 rounded-xl',
+        className
+      )}
       variant={'noHover'}
       {...props}
     >

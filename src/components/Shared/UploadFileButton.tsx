@@ -1,12 +1,22 @@
 import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 import { Upload } from 'lucide-react'
 
-const UploadFileButton: React.FC<
-  React.ButtonHTMLAttributes<HTMLButtonElement>
-> = (props) => {
+interface UploadFileButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  className?: string
+}
+
+const UploadFileButton: React.FC<UploadFileButtonProps> = ({
+  className,
+  ...props
+}) => {
   return (
     <Button
-      className='text-lg text-our-white-100 bg-our-brown-200 py-6 w-44 rounded-xl'
+      className={cn(
+        'text-lg text-our-white-100 bg-our-brown-200 py-6 w-44 rounded-xl',
+        className
+      )}
       variant={'noHover'}
       {...props}
     >

@@ -1,12 +1,18 @@
 import { PlusCircle } from 'lucide-react'
 import { Button } from '../ui/button'
+import { cn } from '@/lib/utils'
 
-const AddButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = (
-  props
-) => {
+interface AddButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  className?: string
+}
+
+const AddButton: React.FC<AddButtonProps> = ({ className, ...props }) => {
   return (
     <Button
-      className='text-lg text-our-white-100 bg-our-brown-200 py-6 w-44 rounded-xl'
+      className={cn(
+        'text-lg text-our-white-100 bg-our-brown-200 py-6 w-44 rounded-xl',
+        className
+      )}
       variant={'noHover'}
       {...props}
     >

@@ -1,7 +1,7 @@
 import { Navbar, Sidebar } from '@/components/Shared'
 import { ReactNode } from 'react'
 
-const Layout = ({ children }: { children: ReactNode }) => {
+const Layout = ({ children, className }: { children: ReactNode, className?: string }) => {
   return (
     <div className='flex p-6 overflow-hidden'>
       <aside className='h-screen w-[18%] me-5'>
@@ -11,7 +11,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
         <div className='pb-5'>
           <Navbar />
         </div>
-        <div>{children}</div>
+        <div className={className}>{children}</div>
       </div>
     </div>
   )
