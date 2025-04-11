@@ -1,4 +1,4 @@
-import { Cards } from '@/components/Shared'
+import { Cards, SharedSelectItem } from '@/components/Shared'
 import { Button } from '@/components/ui/button'
 import {
   Select,
@@ -8,7 +8,6 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Plus } from 'lucide-react'
-import SharedSelectItem from './_components/SharedSelectItem'
 import AddTrack from './AddTrack'
 const Track = () => {
   const groups = [

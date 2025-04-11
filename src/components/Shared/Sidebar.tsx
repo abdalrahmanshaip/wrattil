@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 const menuSections = [
   { id: 'main', title: 'الرئيسية', path: '/' },
   { id: 'quran', title: 'القرآن الكريم', path: '/quran' },
-  { id: 'questions', title: 'بنك الأسئلة', path: '/questions' },
+  { id: 'questions', title: 'بنك الأسئلة القرآن', path: '/quran-questions' },
   { id: 'codes', title: 'إنشاء أكواد', path: '/codes' },
   { id: 'settings', title: 'الإعدادات', path: '/settings' },
   { id: 'tajweed', title: 'التجويد', path: '/tajweed' },

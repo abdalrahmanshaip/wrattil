@@ -7,8 +7,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Plus } from 'lucide-react'
-import SharedSelectItem from './_components/SharedSelectItem'
-import { Cards } from '@/components/Shared'
+import { Cards, SharedSelectItem } from '@/components/Shared'
 const Groups = () => {
   const tracks = [
     { name: 'المسار الأول', id: 1 },

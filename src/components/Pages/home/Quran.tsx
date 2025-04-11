@@ -4,7 +4,7 @@ import CartItem from './_components/CartItem'
 const Quran = () => {
   const quranCards = [
     { image: QuranBook, title: 'عرض طلاب القرآن الكريم', href: '/quran' },
-    { image: Questions, title: 'بنك الأسئلة للقرآن الكريم', href: '/test' },
+    { image: Questions, title: 'بنك الأسئلة للقرآن الكريم', href: '/quran-questions' },
   ]
   return (
     <div className='space-y-4 '>
