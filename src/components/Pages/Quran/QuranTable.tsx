@@ -186,7 +186,7 @@ const  QuranTable = () => {
 
   return (
     <div>
-      <div className='flex justify-between items-center mb-4'>
+      <div className='flex justify-between  mb-4 xl:items-center xl:flex-row flex-col gap-10 '>
         <Moderators />
         <LeftContent />
       </div>

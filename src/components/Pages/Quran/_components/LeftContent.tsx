@@ -2,7 +2,7 @@ import { Clock, Calendar, User } from 'lucide-react'
 
 const LeftContent = () => {
   return (
-    <div className=' py-3 px-4 flex justify-between items-center gap-10'>
+    <div className=' py-3 px-4 flex xl:justify-between  items-center gap-10'>
       <div className='flex items-center gap-2 text-gray-600'>
         <User className='text-gray-500' size={30}/>
         <span className='text-sm font-medium'>566 طالب</span>

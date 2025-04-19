@@ -6,7 +6,7 @@ import {
 
 const LeftButton = () => {
   return (
-    <div className='space-x-2'>
+    <div className='flex gap-2 flex-wrap'>
       <UploadFileButton />
       <AddButton />
       <DownloadButton />

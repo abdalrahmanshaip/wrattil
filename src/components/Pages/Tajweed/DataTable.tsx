@@ -186,7 +186,7 @@ export function DataTable() {
 
   return (
     <div>
-      <div className='flex justify-between items-center mb-4'>
+      <div className='flex justify-between xl:items-center xl:flex-row flex-col gap-10 mb-4'>
         <Moderators />
         <LeftButton />
       </div>

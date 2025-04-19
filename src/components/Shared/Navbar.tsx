@@ -11,9 +11,9 @@ import {
 function Navbar() {
   return (
     <header className='w-full bg-transparent   flex items-center justify-between mt-2'>
-      <p className=''>مساء الخير يا أستاذة علا</p>
+      <p className='xl:text-base text-xs'>مساء الخير يا أستاذة علا</p>
       {/* Center Section - Search Bar */}
-      <div className='relative flex-grow max-w-xl'>
+      <div className='relative flex-grow max-w-xl xl:flex hidden '>
         <Input
           type='text'
           placeholder='ابحث عن طلب'
@@ -33,7 +33,7 @@ function Navbar() {
               <img
                 src={Avatar}
                 alt='avatar'
-                className='w-10 h-10 rounded-xl'
+                className='xl:w-10 w-6 xl:h-10 h-6 rounded-xl'
               />
             </button>
           </DropdownMenuTrigger>
