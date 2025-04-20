@@ -9,26 +9,26 @@ const data = [
 const CircularProgressChart = () => {
   return (
     <div className='flex flex-col items-center justify-center w-full h-64'>
-    <ResponsiveContainer
-      width={200}
-      height={200}
-    >
-      <RadialBarChart
-        innerRadius='70%'
-        outerRadius='100%'
-        data={data}
-        startAngle={90}
-        endAngle={-270}
+      <ResponsiveContainer
+        height={200}
+        width={'100%'}
       >
-        <RadialBar
-          background
-          dataKey='value'
-          cornerRadius={20}
-        />
-      </RadialBarChart>
-    </ResponsiveContainer>
-    <div className='absolute text-xl font-bold text-black'>150k</div>
-  </div>
+        <RadialBarChart
+          innerRadius='70%'
+          outerRadius='100%'
+          data={data}
+          startAngle={90}
+          endAngle={-270}
+        >
+          <RadialBar
+            background
+            dataKey='value'
+            cornerRadius={20}
+          />
+        </RadialBarChart>
+      </ResponsiveContainer>
+      <div className='absolute text-xl font-bold text-black'>150k</div>
+    </div>
   )
 }
 

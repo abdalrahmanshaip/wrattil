@@ -1,14 +1,18 @@
-import { Boy, Control, Logo, House , codeXml} from '@/assets'
-import { useNavigate, useLocation } from 'react-router-dom'
-import { Questions, QuranBook } from '@/assets'
+import { Boy, Control, House, Logo, Questions, QuranBook } from '@/assets'
+import { useLocation, useNavigate } from 'react-router-dom'
+import CreateCode from './CreateCode'
 
 const menuSections = [
-  { id: 'main', title: 'الرئيسية', path: '/', icon: House  },
+  { id: 'main', title: 'الرئيسية', path: '/', icon: House },
   { id: 'quran', title: 'القرآن الكريم', path: '/quran', icon: QuranBook },
-  { id: 'questions', title: 'بنك الأسئلة القرآن', path: '/quran-questions', icon: Questions  },
-  { id: 'codes', title: 'إنشاء كود تسجيل', path: '/codes' , icon: codeXml},
-  { id: 'tajweed', title: 'التجويد', path: '/tajweed', icon: Boy  },
-  { id: 'supervision', title: 'الإشراف', path: '/supervision', icon: Control  },
+  {
+    id: 'questions',
+    title: 'بنك الأسئلة القرآن',
+    path: '/quran-questions',
+    icon: Questions,
+  },
+  { id: 'tajweed', title: 'التجويد', path: '/tajweed', icon: Boy },
+  { id: 'supervision', title: 'الإشراف', path: '/supervision', icon: Control },
 ]
 
 function Sidebar() {
@@ -17,11 +21,14 @@ function Sidebar() {
 
   return (
     <div className='flex flex-col bg-transparent xl:mt-2 mt-5 '>
-      <button onClick={() => navigate('/')} className='flex items-center cursor-pointer'>
+      <button
+        onClick={() => navigate('/')}
+        className='flex items-center cursor-pointer'
+      >
         <img
           src={Logo}
           alt='Logo'
-          />
+        />
       </button>
       <nav className='mt-6 space-y-2'>
         {menuSections.map((section) => (
@@ -37,9 +44,16 @@ function Sidebar() {
                 }`}
           >
             <span className='ps-4  xl:flex hidden'>{section.title}</span>
-            <img className='xl:hidden flex mx-auto' src={section.icon} alt={section.title} width={25} height={25} />
+            <img
+              className='xl:hidden flex mx-auto'
+              src={section.icon}
+              alt={section.title}
+              width={25}
+              height={25}
+            />
           </div>
         ))}
+        <CreateCode />
       </nav>
     </div>
   )
