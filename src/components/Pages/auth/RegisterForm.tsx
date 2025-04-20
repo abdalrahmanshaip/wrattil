@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -16,26 +18,27 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { defaultLoginValues, LoginSchema } from '@/schemas/LoginSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { BookOpen, Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { defaultStudentValues, StudentSchema } from '@/schemas/StudentSchema'
 import { Link } from 'react-router'
-import z from 'zod'
 
-const LoginPage = () => {
+const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
-  const form = useForm<z.infer<typeof LoginSchema>>({
-    resolver: zodResolver(LoginSchema),
-    defaultValues: defaultLoginValues,
+  const form = useForm<z.infer<typeof StudentSchema>>({
+    resolver: zodResolver(StudentSchema),
+    defaultValues: defaultStudentValues,
   })
 
-  const onSubmit = (data: z.infer<typeof LoginSchema>) => {
+  const onSubmit = (data: z.infer<typeof StudentSchema>) => {
     console.log(data)
   }
+
   return (
     <div className='min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-green-50 to-white p-4'>
       <div className='w-full max-w-md'>
@@ -51,9 +54,9 @@ const LoginPage = () => {
         <Card className='border-green-100 shadow-md'>
           <CardHeader className='space-y-1 text-center'>
             <CardTitle className='text-2xl font-bold text-green-900'>
-              اهلا بك
+              إنشاء حساب جديد
             </CardTitle>
-            <CardDescription>أدخل بياناتك للوصول إلى حسابك</CardDescription>
+            <CardDescription>أدخل بياناتك لإنشاء حساب جديد</CardDescription>
           </CardHeader>
           <Form {...form}>
             <form
@@ -63,14 +66,50 @@ const LoginPage = () => {
               <CardContent className='space-y-4'>
                 <FormField
                   control={form.control}
+                  name='name'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>الاسم</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder='محمد أحمد'
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
                   name='email'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel>البريد الإلكتروني</FormLabel>
                       <FormControl>
                         <Input
                           type='email'
                           placeholder='example@domain.com'
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name='phoneNumber'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>رقم الهاتف</FormLabel>
+                      <FormControl>
+                        <Input
+                          dir='rtl'
+                          type='tel'
+                          placeholder='01xxxxxxxxx'
                           {...field}
                         />
                       </FormControl>
@@ -107,6 +146,30 @@ const LoginPage = () => {
                           </Button>
                         </div>
                       </FormControl>
+                      <FormMessage className='text-xs' />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name='applicationId'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>كود التسجيل</FormLabel>
+                      <FormControl>
+                        <Input
+                          type='number'
+                          placeholder='12345'
+                          {...field}
+                          onChange={(e) => {
+                            const value = e.target.value
+                            field.onChange(
+                              value === '' ? 0 : Number.parseInt(value, 10)
+                            )
+                          }}
+                        />
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -114,20 +177,19 @@ const LoginPage = () => {
               </CardContent>
               <CardFooter className='flex flex-col space-y-4'>
                 <Button
-                  variant={'noHover'}
                   type='submit'
                   className='w-full bg-green-800 hover:bg-green-900 text-white'
                   disabled={isLoading}
                 >
-                  {isLoading ? 'تسجيل الدخول...' : 'تسجيل الدخول'}
+                  {isLoading ? 'جاري التسجيل...' : 'إنشاء حساب'}
                 </Button>
                 <div className='text-center text-sm'>
-                  لا تملك حساب؟{' '}
+                  لديك حساب بالفعل؟{' '}
                   <Link
-                    to='/register'
+                    to='/login'
                     className='text-green-700 hover:text-green-900 font-medium'
                   >
-                    انشاء حساب
+                    تسجيل الدخول
                   </Link>
                 </div>
               </CardFooter>
@@ -139,4 +201,4 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage
+export default RegisterForm
