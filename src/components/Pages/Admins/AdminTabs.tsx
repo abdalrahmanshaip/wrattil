@@ -5,7 +5,7 @@ const AdminTabs = () => {
   return (
     <div>
       <div className='container py-8 mx-auto'>
-        <h1 className='text-3xl font-bold text-right mb-6'>إدارة المشرفين</h1>
+        <h1 className='text-3xl font-medium text-right mb-6'>إدارة المشرفين</h1>
 
         <Tabs
           defaultValue='list'
