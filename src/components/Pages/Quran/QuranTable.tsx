@@ -14,7 +14,7 @@ import {
   TableHead,
 } from '@/components/ui/table'
 
-import { Pencil, Trash2, Eye } from 'lucide-react'
+import {  Trash2, Eye } from 'lucide-react'
 import Moderators from './Moderators'
 import LeftContent from './_components/LeftContent'
 
