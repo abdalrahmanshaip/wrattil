@@ -39,7 +39,10 @@ const CreateCode = () => {
       open={isDialogOpen}
       onOpenChange={setIsDialogOpen}
     >
-      <DialogTrigger asChild>
+      <DialogTrigger
+        asChild
+        dir=''
+      >
         <Button
           onClick={requestCode}
           className='items-center justify-start gap-3 p-3 py-8 text-start rounded-xl cursor-pointer transition-all font-semibold text-lg text-gray-700 hover:bg-our-brown-300/70 hover:text-white w-full'
@@ -54,11 +57,8 @@ const CreateCode = () => {
           />
         </Button>
       </DialogTrigger>
-      <DialogContent
-        className='sm:max-w-md'
-        dir='rtl'
-      >
-        <DialogHeader dir='rtl'>
+      <DialogContent className='sm:max-w-md'>
+        <DialogHeader>
           <DialogTitle className='text-xl'>إنشاء كود تسجيل</DialogTitle>
           <DialogDescription>
             يمكنك نسخ الكود التالي واستخدامه لتسجيل الطلبه
@@ -67,7 +67,11 @@ const CreateCode = () => {
         <div className='space-y-5 relative'>
           <Input />
           <Button
-            className={`${copied ? 'bg-our-green' : 'bg-our-sec-gray hover:bg-our-sec-gray/90' } absolute left-0 top-0   text-white`}
+            className={`${
+              copied
+                ? 'bg-our-green'
+                : 'bg-our-sec-gray hover:bg-our-sec-gray/90'
+            } absolute left-0 top-0   text-white`}
             onClick={copyToClipboard}
           >
             {copied ? <Check /> : <Copy />}
