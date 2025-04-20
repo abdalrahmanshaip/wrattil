@@ -1,10 +1,10 @@
-import { Control, Warning } from '@/assets'
+import { Boy, Control } from '@/assets'
 import CartItem from './_components/CartItem'
 
 const Supervisor = () => {
   const quranCards = [
     { image: Control, title: 'عرض المشرفين', href: '/test' },
-    { image: Warning, title: 'الإنذارات', href: '/test' },
+    { image: Boy, title: 'عرض الطلبة', href: '/test' },
   ]
   return (
     <div className='space-y-4'>

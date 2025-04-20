@@ -18,7 +18,6 @@ import { Pencil, Trash2, Eye } from 'lucide-react'
 import Moderators from './Moderators'
 import LeftContent from './_components/LeftContent'
 
-// ✅ تعريف نوع البيانات
 type Student = {
   id: number
   name: string
@@ -133,7 +132,6 @@ const data: Student[] = [
   },
 ]
 
-// ✅ تعديل تعريف الأعمدة
 const columns: ColumnDef<Student>[] = [
   { accessorKey: 'id', header: () => 'م' },
   { accessorKey: 'name', header: () => 'اسم الطالب' },
@@ -165,9 +163,6 @@ const columns: ColumnDef<Student>[] = [
       <div className='flex gap-2 justify-center'>
         <button className='text-[#1E1E1E] bg-gray-200 hover:text-gray-700 rounded-full p-2'>
           <Eye size={16} />
-        </button>
-        <button className='text-[#1E1E1E] bg-gray-200 hover:text-blue-700 rounded-full p-2'>
-          <Pencil size={16} />
         </button>
         <button className='text-[#1E1E1E] bg-gray-200 hover:text-red-700 rounded-full p-2'>
           <Trash2 size={16} />

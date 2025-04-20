@@ -1,4 +1,4 @@
-import { Boy, Control, Logo, House } from '@/assets'
+import { Boy, Control, Logo, House , codeXml} from '@/assets'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Questions, QuranBook } from '@/assets'
 
@@ -6,8 +6,7 @@ const menuSections = [
   { id: 'main', title: 'الرئيسية', path: '/', icon: House  },
   { id: 'quran', title: 'القرآن الكريم', path: '/quran', icon: QuranBook },
   { id: 'questions', title: 'بنك الأسئلة القرآن', path: '/quran-questions', icon: Questions  },
-  // { id: 'codes', title: 'إنشاء أكواد', path: '/codes' },
-  // { id: 'settings', title: 'الإعدادات', path: '/settings' },
+  { id: 'codes', title: 'إنشاء كود تسجيل', path: '/codes' , icon: codeXml},
   { id: 'tajweed', title: 'التجويد', path: '/tajweed', icon: Boy  },
   { id: 'supervision', title: 'الإشراف', path: '/supervision', icon: Control  },
 ]

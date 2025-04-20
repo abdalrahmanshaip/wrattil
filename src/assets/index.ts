@@ -11,6 +11,7 @@ import BGYellow from './BGYellow.svg'
 import Avatar from './Avatar.svg'
 import Logo from './Logo.svg'
 import House from './House.svg'
+import codeXml from './codeXml.svg'
 
 export {
   QuranBook,
@@ -25,5 +26,6 @@ export {
   BGYellow,
   Avatar,
   Logo,
-  House
+  House,
+  codeXml
 }

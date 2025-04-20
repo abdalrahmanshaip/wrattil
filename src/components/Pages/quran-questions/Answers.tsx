@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button'
-import { Check, Edit2, Plus, Trash2 } from 'lucide-react'
+import { Check, Edit2, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 
 const Answers = () => {
@@ -8,9 +8,9 @@ const Answers = () => {
   console.log(chooseAnswer)
 
   return (
-    <div className='grid 2xl:grid-cols-5 grid-cols-2 mt-6 gap-4 items-center'>
+    <div className='grid 2xl:grid-cols-4 grid-cols-2 mt-6 gap-4 items-center'>
       {answers.map((answer, index) => {
-        console.log( chooseAnswer === index)
+        console.log(chooseAnswer === index)
         return (
           <div
             role='button'
@@ -28,7 +28,9 @@ const Answers = () => {
             </div>
             <div className='flex items-center gap-2'>
               <Button
-                className={`rounded-full w-10 h-10 flex justify-center items-center ${chooseAnswer === index ? 'bg-our-green' : 'bg-our-sec-gray'}`}
+                className={`rounded-full w-10 h-10 flex justify-center items-center ${
+                  chooseAnswer === index ? 'bg-our-green' : 'bg-our-sec-gray'
+                }`}
                 variant={'noHover'}
               >
                 <Check
@@ -52,19 +54,6 @@ const Answers = () => {
           </div>
         )
       })}
-      <Button
-        className='text-lg text-our-white-100 bg-our-brown-500 py-8 rounded-xl w-full flex justify-between 2xl:col-span-1 col-span-2'
-        size={'lg'}
-        variant={'noHover'}
-      >
-        <p>أضف إجابة</p>
-        <div className='rounded-full bg-white text-base'>
-          <Plus
-            className='[&_size]:size-2 text-our-brown-500'
-            size={20}
-          />
-        </div>
-      </Button>
     </div>
   )
 }
