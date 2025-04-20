@@ -3,7 +3,7 @@ import CartItem from './_components/CartItem'
 
 const Supervisor = () => {
   const quranCards = [
-    { image: Control, title: 'عرض المشرفين', href: '/test' },
+    { image: Control, title: 'عرض المشرفين', href: '/admins' },
     { image: Boy, title: 'عرض الطلبة', href: '/test' },
   ]
   return (

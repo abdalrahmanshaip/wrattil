@@ -9,7 +9,7 @@ import {
 function Navbar() {
   return (
     <header className='w-full bg-transparent   flex items-center justify-between mt-2'>
-      <p className='xl:text-xl text-xs'>مساء الخير يا أستاذة علا</p>
+      <p className='xl:text-xl text-base'>مساء الخير يا أستاذة علا</p>
       {/* Center Section - Search Bar */}
 
       {/* Right Section - User Profile */}

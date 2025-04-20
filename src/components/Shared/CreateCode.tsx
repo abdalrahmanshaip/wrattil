@@ -11,7 +11,7 @@ import {
 import { useState } from 'react'
 import axios from 'axios'
 import { Input } from '@/components/ui/input'
-import { Copy } from 'lucide-react'
+import { Check, Copy } from 'lucide-react'
 
 const CreateCode = () => {
   const [copied, setCopied] = useState(false)
@@ -61,16 +61,16 @@ const CreateCode = () => {
         <DialogHeader dir='rtl'>
           <DialogTitle className='text-xl'>إنشاء كود تسجيل</DialogTitle>
           <DialogDescription>
-            يمكنك نسخ الكود التالي واستخدامه للتسجيل في النظام
+            يمكنك نسخ الكود التالي واستخدامه لتسجيل الطلبه
           </DialogDescription>
         </DialogHeader>
         <div className='space-y-5 relative'>
           <Input />
           <Button
-            className='bg-our-sec-gray absolute left-0 top-0  hover:bg-our-sec-gray/90 text-white'
+            className={`${copied ? 'bg-our-green' : 'bg-our-sec-gray hover:bg-our-sec-gray/90' } absolute left-0 top-0   text-white`}
             onClick={copyToClipboard}
           >
-            <Copy />
+            {copied ? <Check /> : <Copy />}
           </Button>
         </div>
       </DialogContent>

@@ -12,7 +12,7 @@ const menuSections = [
     icon: Questions,
   },
   { id: 'tajweed', title: 'التجويد', path: '/tajweed', icon: Boy },
-  { id: 'supervision', title: 'الإشراف', path: '/supervision', icon: Control },
+  { id: 'admins', title: 'الإشراف', path: '/admins', icon: Control },
 ]
 
 function Sidebar() {

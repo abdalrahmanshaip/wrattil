@@ -185,12 +185,12 @@ export function DataTable() {
   })
 
   return (
-    <div>
+    <div className=''>
       <div className='flex justify-between xl:items-center xl:flex-row flex-col gap-10 mb-4'>
         <Moderators />
         <LeftButton />
       </div>
-      <div className='rounded-lg border border-gray-300 shadow-sm p-4'>
+      <div className='rounded-lg border border-gray-300 shadow-sm p-4 overflow-x-scroll lg:overflow-hidden '>
         <Table>
           <TableHeader className='bg-[#F1DDD3] text-center'>
             {table.getHeaderGroups().map((headerGroup) => (
