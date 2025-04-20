@@ -4,7 +4,7 @@ import CartItem from './_components/CartItem'
 const Supervisor = () => {
   const quranCards = [
     { image: Control, title: 'عرض المشرفين', href: '/admins' },
-    { image: Boy, title: 'عرض الطلبة', href: '/test' },
+    { image: Boy, title: 'عرض الطلبة', href: '/students' },
   ]
   return (
     <div className='space-y-4'>

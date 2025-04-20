@@ -5,5 +5,19 @@ import BatchDetails from './BatchDetails'
 import GroupDetails from './GroupDetails'
 import QuranQuestionBank from './QuranQuestionBank'
 import AdminsPage from './AdminsPage'
+import StudentsPage from './StudentsPage'
+import LoginPage from './LoginPage'
+import RegisterPage from './RegisterPage'
 
-export { HomePage, TajweedPage, QuranPage, BatchDetails, GroupDetails, QuranQuestionBank, AdminsPage }
+export {
+  HomePage,
+  TajweedPage,
+  QuranPage,
+  BatchDetails,
+  GroupDetails,
+  QuranQuestionBank,
+  AdminsPage,
+  StudentsPage,
+  LoginPage,
+  RegisterPage
+}

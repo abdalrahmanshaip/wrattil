@@ -1,11 +1,11 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import AdminForm from './AdminForm'
-import AdminList from './AdminList'
-const AdminTabs = () => {
+import StudentForm from './StudentForm'
+import StudentList from './StudentList'
+const StudentTabs = () => {
   return (
     <div>
       <div className='container py-8 mx-auto'>
-        <h1 className='text-3xl font-bold text-right mb-6'>إدارة المشرفين</h1>
+        <h1 className='text-3xl font-bold text-right mb-6'>إدارة الطلاب</h1>
 
         <Tabs
           defaultValue='list'
@@ -17,13 +17,13 @@ const AdminTabs = () => {
               value='list'
               className='data-[state=active]:bg-our-orange data-[state=active]:text-white bg-gray-200 text-black py-3'
             >
-              قائمة المشرفين
+              قائمة الطلاب
             </TabsTrigger>
             <TabsTrigger
               value='create'
               className='data-[state=active]:bg-our-orange data-[state=active]:text-white bg-gray-200 text-black py-3'
             >
-              إضافة مشرف جديد
+              إضافة طالب جديد
             </TabsTrigger>
           </TabsList>
 
@@ -31,14 +31,14 @@ const AdminTabs = () => {
             value='list'
             className='mt-6'
           >
-            <AdminList />
+              <StudentList />
           </TabsContent>
 
           <TabsContent
             value='create'
             className='mt-6'
           >
-            <AdminForm />
+            <StudentForm />
           </TabsContent>
         </Tabs>
       </div>
@@ -46,4 +46,4 @@ const AdminTabs = () => {
   )
 }
 
-export default AdminTabs
+export default StudentTabs

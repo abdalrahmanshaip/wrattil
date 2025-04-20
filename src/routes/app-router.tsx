@@ -1,4 +1,4 @@
-import { HomePage, QuranPage, TajweedPage , BatchDetails, GroupDetails, QuranQuestionBank, AdminsPage } from "@/Pages";
+import { HomePage, QuranPage, TajweedPage , BatchDetails, GroupDetails, QuranQuestionBank, AdminsPage, StudentsPage, LoginPage, RegisterPage } from "@/Pages";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -12,6 +12,9 @@ const router = createBrowserRouter(
       <Route path="/tajweed" element={<TajweedPage />} />
       <Route path="/quran" element={<QuranPage />} />
       <Route path="/admins" element={<AdminsPage />} />
+      <Route path="/students" element={<StudentsPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
       <Route path="/quran/batch/:id" element={<BatchDetails />} />
       <Route path="/quran/group/:id" element={<GroupDetails />} />
       <Route path="/quran-questions" element={<QuranQuestionBank />} />
