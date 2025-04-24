@@ -1,2 +1,2 @@
-import StudentTabs from './StudentTabs'
-export { StudentTabs }
+import StudentList from './StudentList'
+export { StudentList }

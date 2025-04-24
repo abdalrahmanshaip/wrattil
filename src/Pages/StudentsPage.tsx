@@ -1,10 +1,10 @@
-import { StudentTabs } from '@/components/Pages/students'
+import { StudentList } from '@/components/Pages/students'
 import { Layout } from '@/Layouts'
 
 const StudentsPage = () => {
   return (
-    <Layout >
-      <StudentTabs />
+    <Layout>
+      <StudentList />
     </Layout>
   )
 }

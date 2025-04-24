@@ -2,7 +2,7 @@
 
 import { Pagination } from '@/components/Shared'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import {
   Table,
@@ -36,7 +36,7 @@ const initialAdmins = [
   },
 ]
 
-const AdminList = () => {
+const StudentList = () => {
   const [searchTerm, setSearchTerm] = useState('')
 
   const handleDelete = (id: number) => {
@@ -106,4 +106,4 @@ const AdminList = () => {
     </Card>
   )
 }
-export default AdminList
+export default StudentList
