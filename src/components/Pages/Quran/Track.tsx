@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Plus } from 'lucide-react'
-import AddTrack from './AddTrack'
+import AddTrack from './_components/AddTrack'
 const Track = () => {
   const groups = [
     { name: 'المسار الأول', id: 1 },

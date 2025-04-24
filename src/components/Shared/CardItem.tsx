@@ -1,7 +1,8 @@
 import { Button } from '@/components/ui/button'
 import { BatchesProps } from '@/types'
-import { Edit2, Eye, Trash2 } from 'lucide-react'
+import { Edit2, Eye } from 'lucide-react'
 import { Link } from 'react-router'
+import DeletePopup from './DeletePopup'
 
 const CardItem = ({ data, route }: { data: BatchesProps, route: string }) => {
   return (
@@ -29,15 +30,7 @@ const CardItem = ({ data, route }: { data: BatchesProps, route: string }) => {
             className='[&_size]:size-5'
           />
         </Button>
-        <Button
-          className='bg-our-white-200 rounded-full   flex items-center justify-center'
-          size={'icon'}
-        >
-          <Trash2
-            size={20}
-            className='[&_size]:size-5'
-          />
-        </Button>
+        <DeletePopup onConfirm={() => console.log(data.id)}/>
       </div>
     </div>
   )
