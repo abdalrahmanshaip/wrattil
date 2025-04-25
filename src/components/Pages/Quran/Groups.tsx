@@ -1,3 +1,4 @@
+import { SharedSelectItem } from '@/components/Shared'
 import { Button } from '@/components/ui/button'
 import {
   Select,
@@ -7,7 +8,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Plus } from 'lucide-react'
-import { Cards, SharedSelectItem } from '@/components/Shared'
+import GroupCards from './_components/GroupCards'
 const Groups = () => {
   const tracks = [
     { name: 'المسار الأول', id: 1 },
@@ -77,11 +78,8 @@ const Groups = () => {
           </SelectContent>
         </Select>
       </div>
-      <Cards
-        data={groups}
-        title='الفرقة الأولى'
-        route='group'
-      />
+      <GroupCards data={groups} />
+
       <Button
         className='text-lg text-our-white-100 bg-our-brown-200 py-8 w-full rounded-xl'
         size={'lg'}

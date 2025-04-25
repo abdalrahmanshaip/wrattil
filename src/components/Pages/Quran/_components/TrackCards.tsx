@@ -1,20 +1,12 @@
-import { CardItem } from '@/components/Shared'
+import DeletePopup from '@/components/Shared/DeletePopup'
 import { BatchesProps } from '@/types'
-import DeletePopup from './DeletePopup'
+import TrackCardItem from './TrackCardItem'
 
-const Cards = ({
-  data,
-  title,
-  route,
-}: {
-  data: BatchesProps[]
-  title: string
-  route: string
-}) => {
+const TrackCards = ({ data }: { data: BatchesProps[] }) => {
   return (
     <div className='space-y-6'>
       <div className='flex justify-between items-center'>
-        <h2 className='text-4xl text-our-black'>{title}</h2>
+        <h2 className='text-4xl text-our-black'>المسار الرابع</h2>
         <DeletePopup
           className='rounded-full bg-our-white-100 w-12 h-12 text-our-black text-2xl'
           onConfirm={() => console.log(1)}
@@ -23,10 +15,9 @@ const Cards = ({
       <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-4'>
         {data.map((item, index) => {
           return (
-            <CardItem
+            <TrackCardItem
               data={item}
               key={index}
-              route={route}
             />
           )
         })}
@@ -35,4 +26,4 @@ const Cards = ({
   )
 }
 
-export default Cards
+export default TrackCards

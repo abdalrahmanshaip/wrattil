@@ -1,4 +1,4 @@
-import { Cards, SharedSelectItem } from '@/components/Shared'
+import { SharedSelectItem } from '@/components/Shared'
 import { Button } from '@/components/ui/button'
 import {
   Select,
@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/select'
 import { Plus } from 'lucide-react'
 import AddTrack from './_components/AddTrack'
+import TrackCards from './_components/TrackCards'
 const Track = () => {
   const groups = [
     { name: 'المسار الأول', id: 1 },
@@ -50,11 +51,8 @@ const Track = () => {
         </Select>
         <AddTrack />
       </div>
-      <Cards
-        data={batches}
-        title='المسار الرابع'
-        route='batch'
-      />
+      <TrackCards data={batches} />
+
       <Button
         className='text-lg text-our-white-100 bg-our-brown-200 py-8 w-full rounded-xl'
         size={'lg'}

@@ -1,10 +1,10 @@
+import DeletePopup from '@/components/Shared/DeletePopup'
 import { Button } from '@/components/ui/button'
 import { BatchesProps } from '@/types'
 import { Edit2, Eye } from 'lucide-react'
 import { Link } from 'react-router'
-import DeletePopup from './DeletePopup'
 
-const CardItem = ({ data, route }: { data: BatchesProps, route: string }) => {
+const GroupCardItem = ({ data }: { data: BatchesProps }) => {
   return (
     <div className='bg-our-white-100 p-6 rounded-xl flex items-center justify-between'>
       <p className='font-medium text-xl text-our-black'>{data.name}</p>
@@ -14,7 +14,7 @@ const CardItem = ({ data, route }: { data: BatchesProps, route: string }) => {
           size={'icon'}
           asChild
         >
-          <Link to={`/quran/${route}/${data.id}`}>
+          <Link to={`/quran/group/${data.id}`}>
             <Eye
               size={20}
               className='[&_size]:size-5'
@@ -30,10 +30,10 @@ const CardItem = ({ data, route }: { data: BatchesProps, route: string }) => {
             className='[&_size]:size-5'
           />
         </Button>
-        <DeletePopup onConfirm={() => console.log(data.id)}/>
+        <DeletePopup onConfirm={() => console.log(data.id)} />
       </div>
     </div>
   )
 }
 
-export default CardItem
+export default GroupCardItem
