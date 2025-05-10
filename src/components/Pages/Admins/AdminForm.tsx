@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { AdminSchema, defaultAdminValues } from '@/schemas/adminSchema'
+import { AdminSchema, defaultAdminValues } from '@/schemas/AdminSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
