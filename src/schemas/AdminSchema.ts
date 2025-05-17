@@ -5,16 +5,10 @@ export const AdminSchema = z.object({
   email: z.string().email({ message: 'يرجى إدخال بريد إلكتروني صحيح' }),
   phoneNumber: z
     .string()
-    .min(11, { message: 'رقم الهاتف يجب أن يكون على الأقل 11 أرقام' }),
+    .min(11, { message: 'رقم الهاتف يجب أن يكون على الأقل 11 رقمًا' }),
   password: z
     .string()
-    .regex(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-      {
-        message:
-          'يجب أن تحتوي كلمة المرور على حرف صغير واحد على الأقل، وحرف كبير واحد، ورقم رقمي واحد، وحرف خاص واحد، ويجب أن يكون اكثر من 8 أحرف على الأقل',
-      }
-    )
+    .min(6, { message: 'كلمة المرور يجب ألا تقل عن 6 أحرف' }),
 })
 
 export const defaultAdminValues = {

@@ -24,7 +24,8 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { defaultStudentValues, StudentSchema } from '@/schemas/StudentSchema'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
+import API from '@/api' // ✅ Axios instance
 
 const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -35,8 +36,19 @@ const RegisterForm = () => {
     defaultValues: defaultStudentValues,
   })
 
-  const onSubmit = (data: z.infer<typeof StudentSchema>) => {
-    console.log(data)
+  const onSubmit = async (data: z.infer<typeof StudentSchema>) => {
+    setIsLoading(true)
+    try {
+      const response = await API.post('/students', data)
+      console.log('Registration successful:', response.data)
+
+      // Optional: Redirect or reset form
+      form.reset()
+    } catch (error: any) {
+      console.error('Registration failed:', error.response?.data || error.message)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -45,24 +57,17 @@ const RegisterForm = () => {
         <div className='flex justify-center mb-6'>
           <div className='flex items-center gap-2 text-green-800'>
             <BookOpen className='h-8 w-8' />
-            <span className='font-arabic text-2xl font-semibold'>
-              القرآن الكريم
-            </span>
+            <span className='font-arabic text-2xl font-semibold'>القرآن الكريم</span>
           </div>
         </div>
 
         <Card className='border-green-100 shadow-md'>
           <CardHeader className='space-y-1 text-center'>
-            <CardTitle className='text-2xl font-bold text-green-900'>
-              إنشاء حساب جديد
-            </CardTitle>
+            <CardTitle className='text-2xl font-bold text-green-900'>إنشاء حساب جديد</CardTitle>
             <CardDescription>أدخل بياناتك لإنشاء حساب جديد</CardDescription>
           </CardHeader>
           <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className='space-y-6'
-            >
+            <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
               <CardContent className='space-y-4'>
                 <FormField
                   control={form.control}
@@ -71,10 +76,7 @@ const RegisterForm = () => {
                     <FormItem>
                       <FormLabel>الاسم</FormLabel>
                       <FormControl>
-                        <Input
-                          placeholder='محمد أحمد'
-                          {...field}
-                        />
+                        <Input placeholder='محمد أحمد' {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -88,11 +90,7 @@ const RegisterForm = () => {
                     <FormItem>
                       <FormLabel>البريد الإلكتروني</FormLabel>
                       <FormControl>
-                        <Input
-                          type='email'
-                          placeholder='example@domain.com'
-                          {...field}
-                        />
+                        <Input type='email' placeholder='example@domain.com' {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -138,11 +136,7 @@ const RegisterForm = () => {
                             className='absolute end-2 top-1/2 transform -translate-y-1/2'
                             onClick={() => setShowPassword(!showPassword)}
                           >
-                            {showPassword ? (
-                              <EyeOff className='h-4 w-4' />
-                            ) : (
-                              <Eye className='h-4 w-4' />
-                            )}
+                            {showPassword ? <EyeOff className='h-4 w-4' /> : <Eye className='h-4 w-4' />}
                           </Button>
                         </div>
                       </FormControl>
@@ -164,9 +158,7 @@ const RegisterForm = () => {
                           {...field}
                           onChange={(e) => {
                             const value = e.target.value
-                            field.onChange(
-                              value === '' ? 0 : Number.parseInt(value, 10)
-                            )
+                            field.onChange(value === '' ? 0 : Number.parseInt(value, 10))
                           }}
                         />
                       </FormControl>
@@ -185,10 +177,7 @@ const RegisterForm = () => {
                 </Button>
                 <div className='text-center text-sm'>
                   لديك حساب بالفعل؟{' '}
-                  <Link
-                    to='/login'
-                    className='text-green-700 hover:text-green-900 font-medium'
-                  >
+                  <Link to='/login' className='text-green-700 hover:text-green-900 font-medium'>
                     تسجيل الدخول
                   </Link>
                 </div>

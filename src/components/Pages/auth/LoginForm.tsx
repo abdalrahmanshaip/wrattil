@@ -21,21 +21,40 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { BookOpen, Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router-dom'
 import z from 'zod'
+import API from '@/api'
 
 const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const navigate = useNavigate()
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: defaultLoginValues,
   })
 
-  const onSubmit = (data: z.infer<typeof LoginSchema>) => {
-    console.log(data)
+  const onSubmit = async (data: z.infer<typeof LoginSchema>) => {
+    setIsLoading(true)
+    try {
+      const response = await API.post('/auth/login', data)
+
+      const token = response.data?.token
+      if (token) {
+        localStorage.setItem('token', token)
+        navigate('/')
+      } else {
+        console.error('No token returned from login.')
+      }
+
+    } catch (error: any) {
+      console.error('Login failed:', error.response?.data || error.message)
+    } finally {
+      setIsLoading(false)
+    }
   }
+
   return (
     <div className='min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-green-50 to-white p-4'>
       <div className='w-full max-w-md'>
@@ -56,10 +75,7 @@ const LoginPage = () => {
             <CardDescription>أدخل بياناتك للوصول إلى حسابك</CardDescription>
           </CardHeader>
           <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className='space-y-6'
-            >
+            <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
               <CardContent className='space-y-4'>
                 <FormField
                   control={form.control}
@@ -78,7 +94,6 @@ const LoginPage = () => {
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name='password'

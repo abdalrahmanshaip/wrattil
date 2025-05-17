@@ -8,43 +8,50 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { useState } from 'react'
-import axios from 'axios'
+import { useEffect, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Check, Copy } from 'lucide-react'
+import API from '@/api'
 
 const CreateCode = () => {
   const [copied, setCopied] = useState(false)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [code, setCode] = useState('')
+
   const copyToClipboard = () => {
-    navigator.clipboard.writeText('asd')
+    if (!code) return
+    navigator.clipboard.writeText(code)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
 
   const requestCode = async () => {
     try {
-      const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/v1/registration-applications`
-      )
-      console.log('Code sent successfully')
-      console.log(res.data)
+      const response = await API.post('/registration-applications')
+      const generatedId = response.data?.id
+      if (generatedId) {
+        setCode(generatedId.toString())
+        console.log('Code generated:', generatedId)
+      }
     } catch (error) {
-      console.log(error)
+      console.error('Error creating registration code:', error)
     }
   }
 
+  // Auto request code when dialog opens
+  useEffect(() => {
+    if (isDialogOpen) {
+      requestCode()
+    } else {
+      setCode('')
+    }
+  }, [isDialogOpen])
+
   return (
-    <Dialog
-      open={isDialogOpen}
-      onOpenChange={setIsDialogOpen}
-    >
-      <DialogTrigger
-        asChild
-        dir=''
-      >
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      <DialogTrigger asChild>
         <Button
-          onClick={requestCode}
+          onClick={() => setIsDialogOpen(true)}
           className='items-center justify-start gap-3 p-3 py-8 text-start rounded-xl cursor-pointer transition-all font-semibold text-lg text-gray-700 hover:bg-our-brown-300/70 hover:text-white w-full'
         >
           <span className='ps-4 xl:flex hidden'>إنشاء كود تسجيل</span>
@@ -65,14 +72,13 @@ const CreateCode = () => {
           </DialogDescription>
         </DialogHeader>
         <div className='space-y-5 relative'>
-          <Input />
+          <Input value={code} readOnly />
           <Button
-            className={`${
-              copied
-                ? 'bg-our-green'
-                : 'bg-our-sec-gray hover:bg-our-sec-gray/90'
-            } absolute left-0 top-0   text-white`}
+            className={`absolute left-0 top-0 text-white ${
+              copied ? 'bg-our-green' : 'bg-our-sec-gray hover:bg-our-sec-gray/90'
+            }`}
             onClick={copyToClipboard}
+            disabled={!code}
           >
             {copied ? <Check /> : <Copy />}
           </Button>
@@ -81,4 +87,5 @@ const CreateCode = () => {
     </Dialog>
   )
 }
+
 export default CreateCode

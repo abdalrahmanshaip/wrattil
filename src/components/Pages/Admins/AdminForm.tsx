@@ -21,6 +21,7 @@ import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
+import API from '@/api' // ✅ Make sure this file sets up your axios instance
 
 const AdminForm = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -31,36 +32,37 @@ const AdminForm = () => {
     defaultValues: defaultAdminValues,
   })
 
-  const onSubmit = (data: z.infer<typeof AdminSchema>) => {
-    console.log(data)
+  const onSubmit = async (data: z.infer<typeof AdminSchema>) => {
+    setIsLoading(true)
+    try {
+      const response = await API.post('/admins', data)
+      console.log('Admin created:', response.data)
+
+      form.reset() // ✅ Clear the form after successful creation
+    } catch (error: any) {
+      console.error('Failed to create admin:', error.response?.data || error.message)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
-    <Card
-      className='w-full  mx-auto'
-      dir='rtl'
-    >
+    <Card className="w-full mx-auto" dir="rtl">
       <CardHeader>
-        <CardTitle className='text-2xl'>إضافة مشرف جديد</CardTitle>
+        <CardTitle className="text-2xl">إضافة مشرف جديد</CardTitle>
         <CardDescription>أدخل بيانات المشرف الجديد</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className='space-y-6'
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
               control={form.control}
-              name='name'
+              name="name"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>الاسم</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder='أدخل اسم المشرف'
-                      {...field}
-                    />
+                    <Input placeholder="أدخل اسم المشرف" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -69,16 +71,12 @@ const AdminForm = () => {
 
             <FormField
               control={form.control}
-              name='email'
+              name="email"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>البريد الإلكتروني</FormLabel>
                   <FormControl>
-                    <Input
-                      type='email'
-                      placeholder='example@domain.com'
-                      {...field}
-                    />
+                    <Input type="email" placeholder="example@domain.com" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -87,15 +85,12 @@ const AdminForm = () => {
 
             <FormField
               control={form.control}
-              name='phoneNumber'
+              name="phoneNumber"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>رقم الهاتف</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder='05xxxxxxxx'
-                      {...field}
-                    />
+                    <Input placeholder="05xxxxxxxx" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -104,29 +99,25 @@ const AdminForm = () => {
 
             <FormField
               control={form.control}
-              name='password'
+              name="password"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>كلمة المرور</FormLabel>
                   <FormControl>
-                    <div className='relative'>
+                    <div className="relative">
                       <Input
                         type={showPassword ? 'text' : 'password'}
-                        placeholder='******'
+                        placeholder="******"
                         {...field}
                       />
                       <Button
-                        type='button'
-                        variant='ghost'
-                        size='icon'
-                        className='absolute end-2 top-1/2 transform -translate-y-1/2'
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="absolute end-2 top-1/2 transform -translate-y-1/2"
                         onClick={() => setShowPassword(!showPassword)}
                       >
-                        {showPassword ? (
-                          <EyeOff className='h-4 w-4' />
-                        ) : (
-                          <Eye className='h-4 w-4' />
-                        )}
+                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </Button>
                     </div>
                   </FormControl>
@@ -136,9 +127,9 @@ const AdminForm = () => {
             />
 
             <Button
-            variant={'noHover'}
-              type='submit'
-              className='w-full bg-our-orange text-white h-10'
+              variant="noHover"
+              type="submit"
+              className="w-full bg-our-orange text-white h-10"
               disabled={isLoading}
             >
               {isLoading ? 'جاري الإنشاء...' : 'إنشاء مشرف جديد'}
@@ -149,4 +140,5 @@ const AdminForm = () => {
     </Card>
   )
 }
+
 export default AdminForm
