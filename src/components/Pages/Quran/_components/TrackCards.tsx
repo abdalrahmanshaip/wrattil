@@ -2,7 +2,12 @@ import DeletePopup from '@/components/Shared/DeletePopup'
 import { BatchesProps } from '@/types'
 import TrackCardItem from './TrackCardItem'
 
-const TrackCards = ({ data }: { data: BatchesProps[] }) => {
+interface TrackCardsProps {
+  data: BatchesProps[]
+  quranTrackId?: number | null
+}
+
+const TrackCards = ({ data, quranTrackId }: TrackCardsProps) => {
   return (
     <div className='space-y-6'>
       <div className='flex justify-between items-center'>
@@ -13,14 +18,13 @@ const TrackCards = ({ data }: { data: BatchesProps[] }) => {
         />
       </div>
       <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-4'>
-        {data.map((item, index) => {
-          return (
-            <TrackCardItem
-              data={item}
-              key={index}
-            />
-          )
-        })}
+        {data.map((item, index) => (
+          <TrackCardItem
+            data={item}
+            key={index}
+            quranTrackId={quranTrackId} // forward prop here
+          />
+        ))}
       </div>
     </div>
   )
