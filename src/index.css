@@ -1,8 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@100..900&display=swap');
 @import 'tailwindcss';
 
 @plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
+
+body {
+  font-family: 'Noto Kufi Arabic', sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-weight: 400;
+}
 
 @theme {
   --color-our-white-100: #ffffff;
@@ -12,7 +20,14 @@
   --color-our-brown-200: #ba5624;
   --color-our-brown-300: #d69a7c;
   --color-our-brown-400: #381a0b;
+  --color-our-brown-500: #703416;
   --color-our-yellow: #f9c83a;
+  --color-our-gray: #777777;
+  --color-our-sec-gray: #858585;
+  --color-our-pink: #e56399;
+  --color-our-green: #43c553;
+  --color-our-orange: #ed7014;
+  --color-our-blue: #1e69d9;
 }
 :root {
   --background: oklch(1 0 0);
