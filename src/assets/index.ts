@@ -12,6 +12,7 @@ import Avatar from './Avatar.svg'
 import Logo from './Logo.svg'
 import House from './House.svg'
 import codeXml from './codeXml.svg'
+import Exam from './Exam.svg'
 
 export {
   QuranBook,
@@ -27,5 +28,6 @@ export {
   Avatar,
   Logo,
   House,
-  codeXml
+  codeXml,
+  Exam
 }

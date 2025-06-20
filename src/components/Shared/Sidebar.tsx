@@ -1,4 +1,4 @@
-import { Boy, Control, House, Logo, Questions, QuranBook } from '@/assets'
+import { Boy, Control, House, Logo, Questions, QuranBook, Exam } from '@/assets'
 import { useLocation, useNavigate } from 'react-router-dom'
 import CreateCode from './CreateCode'
 
@@ -13,6 +13,7 @@ const menuSections = [
   },
   { id: 'tajweed', title: 'التجويد', path: '/tajweed', icon: Boy },
   { id: 'admins', title: 'الإشراف', path: '/admins', icon: Control },
+  { id: 'exams', title: 'الامتحانات', path: '/exams', icon: Exam}
 ]
 
 function Sidebar() {

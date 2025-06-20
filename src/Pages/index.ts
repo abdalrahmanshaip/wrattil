@@ -8,6 +8,7 @@ import AdminsPage from './AdminsPage'
 import StudentsPage from './StudentsPage'
 import LoginPage from './LoginPage'
 import RegisterPage from './RegisterPage'
+import ExamPage from './ExamPage'
 
 export {
   HomePage,
@@ -19,5 +20,6 @@ export {
   AdminsPage,
   StudentsPage,
   LoginPage,
-  RegisterPage
+  RegisterPage,
+  ExamPage
 }
