@@ -9,7 +9,7 @@ const UserStatusItem = ({ item }: { item: UserStatusProp }) => {
     <div className='text-center flex flex-col justify-between items-center mx-auto'>
       <img
         src={item.image}
-        width={50}
+        width={110}
         alt={item.title}
       />
       <div>

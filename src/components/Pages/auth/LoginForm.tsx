@@ -21,6 +21,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { BookOpen, Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { Link, useNavigate } from 'react-router-dom'
 import z from 'zod'
 import API from '@/api'
@@ -40,16 +41,22 @@ const LoginPage = () => {
     try {
       const response = await API.post('/auth/login', data)
 
-      const token = response.data?.token
-      if (token) {
+    const { token, email, role } = response.data
+
+      if (token && email && role) {
         localStorage.setItem('token', token)
+        localStorage.setItem('email', email)
+        localStorage.setItem('role', role.join(','))
+
+        toast.success('تم تسجيل الدخول بنجاح')
         navigate('/')
       } else {
         console.error('No token returned from login.')
       }
 
     } catch (error: any) {
-      console.error('Login failed:', error.response?.data || error.message)
+      const message = 'Login failed: ' + error.response?.data || error.message
+      toast.error(message)
     } finally {
       setIsLoading(false)
     }

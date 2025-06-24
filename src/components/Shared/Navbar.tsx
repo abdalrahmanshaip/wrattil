@@ -1,4 +1,6 @@
-import { Avatar } from '@/assets' // Ensure the path is correct
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Avatar } from '@/assets' // Make sure path is correct
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,18 +9,29 @@ import {
 } from '@/components/ui/dropdown-menu'
 
 function Navbar() {
-  return (
-    <header className='w-full bg-transparent   flex items-center justify-between mt-2'>
-      <p className='xl:text-xl text-base'>مساء الخير يا أستاذة علا</p>
-      {/* Center Section - Search Bar */}
+  const [email, setEmail] = useState<string | null>(null)
+  const navigate = useNavigate()
 
-      {/* Right Section - User Profile */}
-      <div className='relative  max-w-xl'>
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('email')
+    setEmail(storedEmail)
+  }, [])
+
+  const handleLogout = () => {
+    localStorage.clear()
+    navigate('/login') // Redirect to login page
+  }
+
+  return (
+    <header className='w-full bg-transparent flex items-center justify-between mt-2'>
+      <p className='xl:text-xl text-base'>مساء الخير يا أستاذة </p>
+
+      <div className='relative max-w-xl'>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button className='flex items-center gap-1 cursor-pointer hover:bg-blue-100 hover:text-blue-700 p-1 rounded-2xl bg-white'>
               <span className='text-xs text-gray-700 font-medium px-2 py-4'>
-                عمر محمدي
+                {email || 'المستخدم'}
               </span>
               <img
                 src={Avatar}
@@ -34,7 +47,10 @@ function Navbar() {
             <DropdownMenuItem className='text-xs hover:bg-gray-100 px-2 py-3 rounded-md'>
               الملف الشخصي
             </DropdownMenuItem>
-            <DropdownMenuItem className='text-xs hover:bg-red-100 text-red-600 px-2 py-3 rounded-md'>
+            <DropdownMenuItem
+              onClick={handleLogout}
+              className='text-xs hover:bg-red-100 text-red-600 px-2 py-3 rounded-md cursor-pointer'
+            >
               تسجيل الخروج
             </DropdownMenuItem>
           </DropdownMenuContent>

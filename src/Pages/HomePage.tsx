@@ -6,13 +6,7 @@ const HomePage = () => {
     <Layout>
       <div className='flex 2xl:flex-row flex-col  gap-6'>
         <div className='space-y-10 w-full'>
-          <Quran />
-          <Tajweed />
-          <Supervisor />
-        </div>
-        <div className='space-y-5'>
           <UserStatus />
-          <Chart />
         </div>
       </div>
     </Layout>
