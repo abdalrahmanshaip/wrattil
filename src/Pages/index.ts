@@ -2,7 +2,7 @@ import HomePage from './HomePage'
 import TajweedPage from './TajweedPage'
 import QuranPage from './QuranPage'
 import BatchDetails from './BatchDetails'
-import GroupDetails from './GroupDetails'
+import GroupDetailsPage from './GroupDetailsPage'
 import QuranQuestionBank from './QuranQuestionBank'
 import AdminsPage from './AdminsPage'
 import StudentsPage from './StudentsPage'
@@ -15,7 +15,7 @@ export {
   TajweedPage,
   QuranPage,
   BatchDetails,
-  GroupDetails,
+  GroupDetailsPage,
   QuranQuestionBank,
   AdminsPage,
   StudentsPage,

@@ -3,13 +3,12 @@ import {
   createRoutesFromElements,
   Route,
 } from 'react-router-dom'
-
+ 
 import {
   HomePage,
   QuranPage,
   TajweedPage,
-  BatchDetails,
-  GroupDetails,
+  GroupDetailsPage,
   QuranQuestionBank,
   AdminsPage,
   StudentsPage,
@@ -19,6 +18,8 @@ import {
 } from '@/Pages'
 
 import ProtectedRoute from '@/components/ProtectedRoute'
+import AcademicYearsPage from '@/Pages/AcademicYearsPage'
+import GroupsPage from '@/Pages/GroupsPage'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -76,18 +77,26 @@ const router = createBrowserRouter(
         }
       />
       <Route
-        path="/quran/batch/:id"
+        path="/quran/:trackId/academic-years"
         element={
           <ProtectedRoute>
-            <BatchDetails />
+            <AcademicYearsPage />
           </ProtectedRoute>
         }
       />
       <Route
-        path="/quran/group/:id"
+        path="/academic-years/:academicYearId"
         element={
           <ProtectedRoute>
-            <GroupDetails />
+            <GroupsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/groups/:groupId"
+        element={
+          <ProtectedRoute>
+            <GroupDetailsPage />
           </ProtectedRoute>
         }
       />
