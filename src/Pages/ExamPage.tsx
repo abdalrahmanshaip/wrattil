@@ -1,10 +1,10 @@
-import { ExamTabs } from '@/components/Pages/Exams'
+import { ExamList } from '@/components/Pages/Exams'
 import { Layout } from '@/Layouts'
 
 const ExamPage = () => {
   return (
     <Layout>
-      <ExamTabs />
+      <ExamList />
     </Layout>
   )
 }

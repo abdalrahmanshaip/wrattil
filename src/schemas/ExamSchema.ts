@@ -1,14 +1,11 @@
 import { z } from 'zod'
 
 export const ExamSchema = z.object({
-  title: z.string().min(2, { message: 'الاسم يجب أن يكون أكثر من حرفين' }),
-  description: z.string().min(5, { message: 'الوصف يجب ألا يكون فارغًا' }),
-  grade: z.number().min(0, { message: 'الدرجة يجب أن تكون رقمًا غير سالب' }),
-  examDate: z
-    .string()
-    .refine((val) => !isNaN(Date.parse(val)), {
-      message: 'يرجى إدخال تاريخ ووقت صالحين بصيغة YYYY-MM-DDTHH:mm',
-    }),
+  id: z.number().optional(), // ✅ Add this
+  title: z.string().min(1, 'الاسم مطلوب'),
+  description: z.string().min(1, 'الوصف مطلوب'),
+  grade: z.coerce.number().min(0.1, 'يجب أن تكون الدرجة أكبر من 0'),
+  examDate: z.string().min(1, 'تاريخ الامتحان مطلوب'),
 })
 
 export const defaultExamValues = {

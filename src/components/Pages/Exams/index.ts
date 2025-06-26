@@ -1,2 +1,2 @@
-import ExamTabs from './ExamTabs'
-export { ExamTabs }
+import ExamList from './ExamList'
+export { ExamList }

@@ -21,6 +21,7 @@ interface Student {
   name: string
   email: string
   phoneNumber: string
+  warningCount: number
 }
 
 const StudentList = () => {
@@ -50,9 +51,9 @@ const StudentList = () => {
     fetchStudents()
   }, [searchTerm, page])
 
-  const handleDelete = (id: number) => {
-    console.log('Delete student ID:', id)
-  }
+  // const handleDelete = (id: number) => {
+  //   console.log('Delete student ID:', id)
+  // }
 
   const start = page * size + 1
   const end = Math.min((page + 1) * size, totalElements)
@@ -81,7 +82,8 @@ const StudentList = () => {
                 <TableHead className="text-right">الاسم</TableHead>
                 <TableHead className="text-right">البريد الإلكتروني</TableHead>
                 <TableHead className="text-right">رقم الهاتف</TableHead>
-                <TableHead className="text-center">الإجراءات</TableHead>
+                <TableHead className="text-right">الانذارات</TableHead>
+                {/* <TableHead className="text-center">الإجراءات</TableHead> */}
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -91,7 +93,8 @@ const StudentList = () => {
                     <TableCell className="font-medium">{student.name}</TableCell>
                     <TableCell>{student.email}</TableCell>
                     <TableCell>{student.phoneNumber}</TableCell>
-                    <TableCell className="text-center">
+                    <TableCell>{student.warningCount}</TableCell>
+                    {/* <TableCell className="text-center">
                       <Button
                         variant="outline"
                         size="icon"
@@ -100,7 +103,7 @@ const StudentList = () => {
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
-                    </TableCell>
+                    </TableCell> */}
                   </TableRow>
                 ))
               ) : (

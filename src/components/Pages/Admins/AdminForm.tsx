@@ -22,6 +22,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
 import API from '@/api' // ✅ Make sure this file sets up your axios instance
+import { toast } from 'sonner'
 
 const AdminForm = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -35,12 +36,11 @@ const AdminForm = () => {
   const onSubmit = async (data: z.infer<typeof AdminSchema>) => {
     setIsLoading(true)
     try {
-      const response = await API.post('/admins', data)
-      console.log('Admin created:', response.data)
-
-      form.reset() // ✅ Clear the form after successful creation
+      await API.post('/admins', data)
+      toast.success('تم اضافة المشرف بنجاح')
+      form.reset() 
     } catch (error: any) {
-      console.error('Failed to create admin:', error.response?.data || error.message)
+      toast.error('Failed to create admin:', error.response?.data || error.message)
     } finally {
       setIsLoading(false)
     }

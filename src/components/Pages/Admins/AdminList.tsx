@@ -12,8 +12,19 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { Search, Trash2 } from 'lucide-react'
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog'
+import { Search, Ban, Loader2 } from 'lucide-react'
 import API from '@/api'
+import { toast } from 'sonner'
 
 interface Admin {
   id: number
@@ -28,6 +39,8 @@ const AdminList = () => {
   const [page, setPage] = useState(0)
   const size = 10
   const [totalElements, setTotalElements] = useState(0)
+  const [blockingId, setBlockingId] = useState<number | null>(null)
+  const [openDialogId, setOpenDialogId] = useState<number | null>(null)
 
   const fetchAdmins = async () => {
     try {
@@ -36,7 +49,6 @@ const AdminList = () => {
         : `/admins?page=${page}&size=${size}`
       const response = await API.get(endpoint)
 
-      // adapt to pagination structure (adjust if needed)
       const data = response.data
       setAdmins(data.content || data)
       setTotalElements(data.totalElements || data.length || 0)
@@ -49,8 +61,17 @@ const AdminList = () => {
     fetchAdmins()
   }, [page, searchTerm])
 
-  const handleDelete = (id: number) => {
-    console.log('delete admin id:', id)
+  const handleBlock = async (id: number) => {
+    setBlockingId(id)
+    try {
+      await API.post(`/admins/${id}/block`)
+      setOpenDialogId(null)
+      toast.success('تم حذر المشرف بنجاح')
+    } catch (error) {
+      toast.error(error.message)
+    } finally {
+      setBlockingId(null)
+    }
   }
 
   const start = page * size + 1
@@ -92,14 +113,44 @@ const AdminList = () => {
                     <TableCell>{admin.email}</TableCell>
                     <TableCell>{admin.phoneNumber}</TableCell>
                     <TableCell className="text-center">
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="text-red-500"
-                        onClick={() => handleDelete(admin.id)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
+                      <AlertDialog open={openDialogId === admin.id} onOpenChange={(open) => setOpenDialogId(open ? admin.id : null)}>
+                        <AlertDialogTrigger asChild>
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className="text-red-500"
+                            disabled={blockingId === admin.id}
+                          >
+                            {blockingId === admin.id ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              <Ban className="h-4 w-4" />
+                            )}
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>تأكيد الحظر</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              هل أنت متأكد أنك تريد حظر هذا المشرف؟ لن يتمكن من تسجيل الدخول.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>إلغاء</AlertDialogCancel>
+                            <Button
+                              className="bg-red-600 text-white"
+                              onClick={() => handleBlock(admin.id)}
+                              disabled={blockingId === admin.id}
+                            >
+                              {blockingId === admin.id ? (
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                              ) : (
+                                'تأكيد الحظر'
+                              )}
+                            </Button>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </TableCell>
                   </TableRow>
                 ))
@@ -114,7 +165,6 @@ const AdminList = () => {
           </Table>
         </div>
 
-        {/* Static Pagination with logic */}
         <div className="mt-8">
           <div className="flex items-center justify-between">
             <p className="text-sm text-gray-600">

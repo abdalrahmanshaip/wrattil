@@ -15,7 +15,8 @@ import {
   StudentsPage,
   LoginPage,
   RegisterPage,
-  ExamPage
+  ExamPage,
+  ExamGradesPage
 } from '@/Pages'
 
 import ProtectedRoute from '@/components/ProtectedRoute'
@@ -74,6 +75,14 @@ const router = createBrowserRouter(
         element={
           <ProtectedRoute>
             <ExamPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/exams/:examId/grades"
+        element={
+          <ProtectedRoute>
+            <ExamGradesPage />
           </ProtectedRoute>
         }
       />
