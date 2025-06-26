@@ -1,5 +1,6 @@
 import HomePage from './HomePage'
 import TajweedPage from './TajweedPage'
+import TajweedDetailsPage from './TajweedDetailsPage'
 import QuranPage from './QuranPage'
 import BatchDetails from './BatchDetails'
 import GroupDetailsPage from './GroupDetailsPage'
@@ -13,6 +14,7 @@ import ExamPage from './ExamPage'
 export {
   HomePage,
   TajweedPage,
+  TajweedDetailsPage,
   QuranPage,
   BatchDetails,
   GroupDetailsPage,

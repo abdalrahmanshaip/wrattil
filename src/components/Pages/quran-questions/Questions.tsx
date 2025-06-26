@@ -5,13 +5,6 @@ const Questions = () => {
   return (
     <div className='mt-10 space-y-10'>
       <div className='flex justify-between items-center'>
-        <h2 className='text-4xl text-our-black'>سورة يس</h2>
-        <Button
-          variant={'noHover'}
-          className='rounded-full bg-our-white-100 w-12 h-12 text-our-black text-base'
-        >
-          <Trash2 className='text-our-black [&_size]:size-5 ' />
-        </Button>
       </div>
       <div className='bg-our-brown-100 flex items-center justify-between space-x-4 px-2 py-3 rounded-xl'>
         <div className=' flex items-center space-x-4'>

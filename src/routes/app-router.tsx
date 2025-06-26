@@ -8,6 +8,7 @@ import {
   HomePage,
   QuranPage,
   TajweedPage,
+  TajweedDetailsPage,
   GroupDetailsPage,
   QuranQuestionBank,
   AdminsPage,
@@ -41,6 +42,14 @@ const router = createBrowserRouter(
         element={
           <ProtectedRoute>
             <TajweedPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/tajweed/:tajweedId"
+        element={
+          <ProtectedRoute>
+            <TajweedDetailsPage />
           </ProtectedRoute>
         }
       />

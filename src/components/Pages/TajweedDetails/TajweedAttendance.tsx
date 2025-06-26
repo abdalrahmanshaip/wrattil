@@ -51,8 +51,8 @@ const AttendanceUploadSchema = z.object({
   file: z.any()
 })
 
-const GroupAttendance = () => {
-  const { groupId } = useParams<{ groupId: string }>()
+const TajweedAttendance = () => {
+  const { tajweedId } = useParams<{ tajweedId: string }>()
   const [attendances, setAttendances] = useState<Attendance[]>([])
   const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)
@@ -75,9 +75,9 @@ const GroupAttendance = () => {
   const fetchAttendance = async (attendanceDateTime: string) => {
     setLoading(true)
     try {
-      const res = await API.get(`/attendance/group-attendance`, {
+      const res = await API.get(`/attendance/tajweed-attendance`, {
         params: {
-          groupId,
+          tajweedTrainingId: tajweedId,
           attendanceDateTime,
         },
       })
@@ -98,11 +98,11 @@ const GroupAttendance = () => {
     setUploading(true)
     try {
       const formData = new FormData()
-      formData.append('groupId', groupId || '')
+      formData.append('tajweedTrainingId', tajweedId || '')
       formData.append('attendanceDateTime', data.attendanceDateTime)
       formData.append('attendanceFile', data.file)
 
-      await API.post(`/attendance/group-attendance`, formData, {
+      await API.post(`/attendance/tajweed-attendance`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
 
@@ -220,4 +220,4 @@ const GroupAttendance = () => {
   )
 }
 
-export default GroupAttendance
+export default TajweedAttendance

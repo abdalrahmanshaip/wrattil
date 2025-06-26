@@ -23,3 +23,12 @@ export interface IGroup {
   title: number;
   appointments: IAppointment[];
 }
+
+export interface ITajweed {
+  tajweedTrainingId: number
+  title: string
+  appointments: {
+    dayOfWeek: 'MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY' | 'SUNDAY'
+    startTime: string
+  }[]
+} 

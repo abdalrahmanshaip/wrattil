@@ -5,15 +5,16 @@ import CreateCode from './CreateCode'
 const menuSections = [
   { id: 'main', title: 'الرئيسية', path: '/', icon: House },
   { id: 'quran', title: 'القرآن الكريم', path: '/quran', icon: QuranBook },
-  {
-    id: 'questions',
-    title: 'بنك الأسئلة القرآن',
-    path: '/quran-questions',
-    icon: Questions,
-  },
   { id: 'tajweed', title: 'التجويد', path: '/tajweed', icon: Boy },
   { id: 'admins', title: 'الإشراف', path: '/admins', icon: Control },
+  { id: 'students', title: 'الطلبة', path: '/students', icon: Boy},
   { id: 'exams', title: 'الامتحانات', path: '/exams', icon: Exam}
+  // {
+  //   id: 'questions',
+  //   title: 'بنك الأسئلة القرآن',
+  //   path: '/quran-questions',
+  //   icon: Questions,
+  // }
 ]
 
 function Sidebar() {

@@ -38,18 +38,6 @@ const Answers = () => {
                   className='[&_size]:size-6'
                 />
               </Button>
-              <Button
-                className='bg-white rounded-full h-8 w-8'
-                variant={'noHover'}
-              >
-                <Edit2 className='[&_size]:size-6' />
-              </Button>
-              <Button
-                className='bg-white rounded-full h-8 w-8'
-                variant={'noHover'}
-              >
-                <Trash2 className='[&_size]:size-6' />
-              </Button>
             </div>
           </div>
         )
