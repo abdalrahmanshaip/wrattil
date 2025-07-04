@@ -1,2 +1,3 @@
 import GroupDetailsTabs from './GroupDetailsTabs'
-export { GroupDetailsTabs }
+import LessonDetailsTabs from './GroupLessons/LessonDetailsTabs'
+export { GroupDetailsTabs, LessonDetailsTabs  }

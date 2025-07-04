@@ -11,6 +11,8 @@ import LoginPage from './LoginPage'
 import RegisterPage from './RegisterPage'
 import ExamPage from './ExamPage'
 import ExamGradesPage from './ExamGradesPage'
+import LessonDetailsPage from './LessonDetailsPage'
+import WarningsListPage from './WarningsPage'
 
 export {
   HomePage,
@@ -25,5 +27,7 @@ export {
   LoginPage,
   RegisterPage,
   ExamPage,
-  ExamGradesPage
+  ExamGradesPage,
+  LessonDetailsPage,
+  WarningsListPage
 }
