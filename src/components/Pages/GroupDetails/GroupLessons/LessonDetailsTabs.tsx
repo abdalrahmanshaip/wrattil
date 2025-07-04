@@ -1,6 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import LessonAttendance from './LessonAttendance'
 import LessonReciting from './LessonReciting'
+import GroupStudentsWeeklyReport from './LessonReport'
 
 const LessonDetailsTabs = () => {
   return (
@@ -21,7 +22,14 @@ const LessonDetailsTabs = () => {
           >
             التمام
           </TabsTrigger>
+          <TabsTrigger
+            value="report"
+            className="data-[state=active]:bg-our-orange data-[state=active]:text-white bg-gray-200 text-black py-3"
+          >
+            التقرير النهائي
+          </TabsTrigger>
         </TabsList>
+
 
         <TabsContent value="attendance" className="mt-6">
           <LessonAttendance />
@@ -29,6 +37,10 @@ const LessonDetailsTabs = () => {
 
         <TabsContent value="reciting" className="mt-6">
           <LessonReciting />
+        </TabsContent>
+
+        <TabsContent value="report" className="mt-6">
+          <GroupStudentsWeeklyReport />
         </TabsContent>
       </Tabs>
     </div>
