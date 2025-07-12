@@ -29,12 +29,6 @@ const GroupDetailsTabs = () => {
           >
             مشرفين
           </TabsTrigger>
-          <TabsTrigger
-            value="attendance"
-            className="data-[state=active]:bg-our-orange data-[state=active]:text-white bg-gray-200 text-black py-3"
-          >
-            حضور
-          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="lessons" className="mt-6">
@@ -47,10 +41,6 @@ const GroupDetailsTabs = () => {
 
         <TabsContent value="admins" className="mt-6">
           <GroupAdmins />
-        </TabsContent>
-
-        <TabsContent value="attendance" className="mt-6">
-          <GroupAttendance />
         </TabsContent>
       </Tabs>
     </div>

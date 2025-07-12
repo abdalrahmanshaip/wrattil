@@ -21,7 +21,6 @@ interface Student {
   name: string
   email: string
   phoneNumber: string
-  warningCount: number
 }
 
 const StudentList = () => {
@@ -82,7 +81,6 @@ const StudentList = () => {
                 <TableHead className="text-right">الاسم</TableHead>
                 <TableHead className="text-right">البريد الإلكتروني</TableHead>
                 <TableHead className="text-right">رقم الهاتف</TableHead>
-                <TableHead className="text-right">الانذارات</TableHead>
                 {/* <TableHead className="text-center">الإجراءات</TableHead> */}
               </TableRow>
             </TableHeader>
@@ -93,7 +91,6 @@ const StudentList = () => {
                     <TableCell className="font-medium">{student.name}</TableCell>
                     <TableCell>{student.email}</TableCell>
                     <TableCell>{student.phoneNumber}</TableCell>
-                    <TableCell>{student.warningCount}</TableCell>
                     {/* <TableCell className="text-center">
                       <Button
                         variant="outline"

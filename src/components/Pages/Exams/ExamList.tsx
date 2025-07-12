@@ -26,6 +26,7 @@ import { Search, Loader2, Pencil, Trash2, ListOrdered } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import API from '@/api'
 import ExamForm from './ExamForm'
+import { IAcademicYear } from '@/types'
 
 interface Exam {
   id: number
@@ -33,6 +34,7 @@ interface Exam {
   description: string
   grade: number
   examDate: string
+  academicYear: IAcademicYear 
 }
 
 const ExamList = () => {
@@ -124,6 +126,7 @@ const ExamList = () => {
                 <TableHead className="text-right">الوصف</TableHead>
                 <TableHead className="text-right">الدرجة</TableHead>
                 <TableHead className="text-center">التاريخ</TableHead>
+                <TableHead className="text-center">العام الدراسي</TableHead>
                 <TableHead className="text-center">الإجراءات</TableHead>
               </TableRow>
             </TableHeader>
@@ -135,6 +138,7 @@ const ExamList = () => {
                     <TableCell>{exam.description}</TableCell>
                     <TableCell>{exam.grade}</TableCell>
                     <TableCell>{exam.examDate}</TableCell>
+                    <TableCell>{exam.academicYear.title}</TableCell>
                     <TableCell className="text-center space-x-2 rtl:space-x-reverse">
                       <Link to={`/exams/${exam.id}/grades`}>
                         <Button variant="outline" size="icon">

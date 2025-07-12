@@ -34,7 +34,6 @@ import API from '@/api'
 interface Attendance {
   id: number
   recitingStatus: string
-  recitingWithFriend: string
   quizGrade: number
   attended: boolean,
   student: {
@@ -146,8 +145,7 @@ const LessonAttendance = () => {
                   <TableHead className="text-right">اسم الطالب</TableHead>
                   <TableHead className="text-right">الإيميل</TableHead>
                   <TableHead className="text-right">الحضور</TableHead>
-                  <TableHead className="text-right">تسميع الحلقة</TableHead>
-                  <TableHead className="text-right">التسميع مع الرفيقة</TableHead>                  
+                  <TableHead className="text-right">تسميع الحلقة</TableHead>       
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -159,7 +157,6 @@ const LessonAttendance = () => {
                       <TableCell>{attendance.student.email}</TableCell>
                       <TableCell>{attendance.attended ? '✔️' : '❌'}</TableCell>
                       <TableCell>{attendance.recitingStatus}</TableCell>
-                      <TableCell>{attendance.recitingWithFriend}</TableCell>
                     </TableRow>
                   ))
                 ) : (

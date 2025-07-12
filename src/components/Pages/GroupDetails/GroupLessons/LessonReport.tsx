@@ -22,7 +22,6 @@ interface GroupStudentReport {
   groupId: number
   studentName: string
   attendedLastLesson: boolean
-  recitingWithFriend: string
   eljazariyyahQuizGrade: number
   tuhfatQuizGrade: number
   recitingCount: number
@@ -42,7 +41,6 @@ const GroupStudentsWeeklyReport = () => {
         groupId: 1073741824,
         studentName: "أحمد محمد",
         attendedLastLesson: true,
-        recitingWithFriend: "علي",
         eljazariyyahQuizGrade: 9.5,
         tuhfatQuizGrade: 8.0,
         recitingCount: 5,
@@ -53,7 +51,6 @@ const GroupStudentsWeeklyReport = () => {
         groupId: 1073741824,
         studentName: "سارة أحمد",
         attendedLastLesson: false,
-        recitingWithFriend: "منى",
         eljazariyyahQuizGrade: 7.0,
         tuhfatQuizGrade: 9.0,
         recitingCount: 3,
@@ -64,7 +61,6 @@ const GroupStudentsWeeklyReport = () => {
         groupId: 1073741824,
         studentName: "محمد سمير",
         attendedLastLesson: true,
-        recitingWithFriend: "كريم",
         eljazariyyahQuizGrade: 10.0,
         tuhfatQuizGrade: 9.5,
         recitingCount: 6,
@@ -75,7 +71,6 @@ const GroupStudentsWeeklyReport = () => {
         groupId: 1073741824,
         studentName: "ريم خالد",
         attendedLastLesson: false,
-        recitingWithFriend: "ندى",
         eljazariyyahQuizGrade: 6.0,
         tuhfatQuizGrade: 7.5,
         recitingCount: 4,
@@ -86,7 +81,6 @@ const GroupStudentsWeeklyReport = () => {
         groupId: 1073741824,
         studentName: "ياسين إبراهيم",
         attendedLastLesson: true,
-        recitingWithFriend: "عبدالله",
         eljazariyyahQuizGrade: 8.5,
         tuhfatQuizGrade: 8.0,
         recitingCount: 7,
@@ -116,7 +110,6 @@ const GroupStudentsWeeklyReport = () => {
                   <TableHead className="text-right">م</TableHead>
                   <TableHead className="text-right">اسم الطالب</TableHead>
                   <TableHead className="text-right">حضر الدرس الأخير؟</TableHead>
-                  <TableHead className="text-right">تسميع مع صديق</TableHead>
                   <TableHead className="text-right">درجة الجزرية</TableHead>
                   <TableHead className="text-right">درجة التحفة</TableHead>
                   <TableHead className="text-right">عدد التسميعات</TableHead>
@@ -130,7 +123,6 @@ const GroupStudentsWeeklyReport = () => {
                       <TableCell>{index + 1}</TableCell>
                       <TableCell>{student.studentName}</TableCell>
                       <TableCell>{student.attendedLastLesson ? 'نعم' : 'لا'}</TableCell>
-                      <TableCell>{student.recitingWithFriend}</TableCell>
                       <TableCell>{student.eljazariyyahQuizGrade}</TableCell>
                       <TableCell>{student.tuhfatQuizGrade}</TableCell>
                       <TableCell>{student.recitingCount}</TableCell>
