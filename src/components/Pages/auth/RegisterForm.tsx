@@ -29,7 +29,6 @@ import API from '@/api' // ✅ Axios instance
 
 const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false)
-  const [showPassword, setShowPassword] = useState(false)
 
   const form = useForm<z.infer<typeof StudentSchema>>({
     resolver: zodResolver(StudentSchema),
@@ -116,56 +115,6 @@ const RegisterForm = () => {
                   )}
                 />
 
-                <FormField
-                  control={form.control}
-                  name='password'
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>كلمة المرور</FormLabel>
-                      <FormControl>
-                        <div className='relative'>
-                          <Input
-                            type={showPassword ? 'text' : 'password'}
-                            placeholder='******'
-                            {...field}
-                          />
-                          <Button
-                            type='button'
-                            variant='noHover'
-                            size='icon'
-                            className='absolute end-2 top-1/2 transform -translate-y-1/2'
-                            onClick={() => setShowPassword(!showPassword)}
-                          >
-                            {showPassword ? <EyeOff className='h-4 w-4' /> : <Eye className='h-4 w-4' />}
-                          </Button>
-                        </div>
-                      </FormControl>
-                      <FormMessage className='text-xs' />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name='applicationId'
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>كود التسجيل</FormLabel>
-                      <FormControl>
-                        <Input
-                          type='number'
-                          placeholder='12345'
-                          {...field}
-                          onChange={(e) => {
-                            const value = e.target.value
-                            field.onChange(value === '' ? 0 : Number.parseInt(value, 10))
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
               </CardContent>
               <CardFooter className='flex flex-col space-y-4'>
                 <Button
@@ -175,12 +124,6 @@ const RegisterForm = () => {
                 >
                   {isLoading ? 'جاري التسجيل...' : 'إنشاء حساب'}
                 </Button>
-                <div className='text-center text-sm'>
-                  لديك حساب بالفعل؟{' '}
-                  <Link to='/login' className='text-green-700 hover:text-green-900 font-medium'>
-                    تسجيل الدخول
-                  </Link>
-                </div>
               </CardFooter>
             </form>
           </Form>

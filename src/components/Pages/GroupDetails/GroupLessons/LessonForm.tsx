@@ -23,7 +23,7 @@ import API from '@/api'
 import { useParams } from 'react-router-dom'
 
 const LessonSchema = z.object({
-  teacherName: z.string().nonempty('اسم المعلم مطلوب'),
+  title: z.string().nonempty('اسم المعلم مطلوب'),
   lessonDateTime: z.string().nonempty('تاريخ ووقت الدرس مطلوب'),
 })
 
@@ -42,7 +42,7 @@ const LessonForm = ({ initialData, onSuccess, onCancel }: LessonFormProps) => {
   const form = useForm<FormData>({
     resolver: zodResolver(LessonSchema),
     defaultValues: initialData || {
-      teacherName: '',
+      title: '',
       lessonDateTime: '',
     },
   })
@@ -85,12 +85,12 @@ const LessonForm = ({ initialData, onSuccess, onCancel }: LessonFormProps) => {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
               control={form.control}
-              name="teacherName"
+              name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>اسم المعلم</FormLabel>
+                  <FormLabel>العنوان</FormLabel>
                   <FormControl>
-                    <Input placeholder="اسم المعلم" {...field} />
+                    <Input placeholder="العنوان" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

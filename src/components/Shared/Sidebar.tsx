@@ -1,6 +1,5 @@
-import { Boy, Control, House, Logo, Questions, QuranBook, Exam, Warning } from '@/assets'
+import { Boy, Control, House, Logo, QuranBook, Exam } from '@/assets'
 import { useLocation, useNavigate } from 'react-router-dom'
-import CreateCode from './CreateCode'
 
 const menuSections = [
   { id: 'main', title: 'الرئيسية', path: '/', icon: House },
@@ -9,7 +8,7 @@ const menuSections = [
   { id: 'admins', title: 'الإشراف', path: '/admins', icon: Control },
   { id: 'students', title: 'الطلبة', path: '/students', icon: Boy},
   { id: 'exams', title: 'الامتحانات', path: '/exams', icon: Exam},
-  { id: 'warnings', title: 'التحذيرات', path: '/warnings', icon: Warning},
+  { id: 'natega', title: 'النتائج', path: '/natega', icon: Exam},
   // {
   //   id: 'questions',
   //   title: 'بنك الأسئلة القرآن',
@@ -56,7 +55,6 @@ function Sidebar() {
             />
           </div>
         ))}
-        <CreateCode />
       </nav>
     </div>
   )

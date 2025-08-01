@@ -143,15 +143,6 @@ const LoginPage = () => {
                 >
                   {isLoading ? 'تسجيل الدخول...' : 'تسجيل الدخول'}
                 </Button>
-                <div className='text-center text-sm'>
-                  لا تملك حساب؟{' '}
-                  <Link
-                    to='/register'
-                    className='text-green-700 hover:text-green-900 font-medium'
-                  >
-                    انشاء حساب
-                  </Link>
-                </div>
               </CardFooter>
             </form>
           </Form>

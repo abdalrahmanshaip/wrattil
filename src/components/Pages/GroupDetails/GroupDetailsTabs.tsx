@@ -1,8 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import GroupStudents from './GroupStudents'
 import GroupAdmins from './GroupAdmins'
-import GroupAttendance from './GroupAttendance'
 import GroupLessons from './GroupLessons/GroupLessons'
+import GroupWeeklyReport from './GroupWeeklyReport'
 
 const GroupDetailsTabs = () => {
   return (
@@ -23,11 +23,12 @@ const GroupDetailsTabs = () => {
           >
             طلبة
           </TabsTrigger>
+
           <TabsTrigger
-            value="admins"
+            value="reports"
             className="data-[state=active]:bg-our-orange data-[state=active]:text-white bg-gray-200 text-black py-3"
           >
-            مشرفين
+            تقارير
           </TabsTrigger>
         </TabsList>
 
@@ -39,8 +40,8 @@ const GroupDetailsTabs = () => {
           <GroupStudents />
         </TabsContent>
 
-        <TabsContent value="admins" className="mt-6">
-          <GroupAdmins />
+        <TabsContent value="reports" className="mt-6">
+          <GroupWeeklyReport />
         </TabsContent>
       </Tabs>
     </div>

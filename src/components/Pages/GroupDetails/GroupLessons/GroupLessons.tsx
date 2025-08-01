@@ -10,7 +10,7 @@ import LessonForm from './LessonForm'
 
 interface Lesson {
   id: number
-  teacherName: string
+  title: string
   lessonDateTime: string
 }
 
@@ -75,6 +75,14 @@ const GroupLessons = () => {
   const start = page * size + 1
   const end = Math.min((page + 1) * size, totalElements)
 
+  const extractDate = (datetime: string): string => {
+    return datetime.split('T')[0]; // "2025-08-01"
+  };
+
+  const extractTime = (datetime: string): string => {
+    return datetime.split('T')[1].slice(0, 5); // "18:50"
+  };
+
   if (showForm) {
     return <LessonForm initialData={editLesson || undefined} onSuccess={handleSuccess} onCancel={() => setShowForm(false)} />
   }
@@ -95,8 +103,9 @@ const GroupLessons = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="text-right">اسم المعلم</TableHead>
+                <TableHead className="text-center"> عنوان</TableHead>
                 <TableHead className="text-center">التاريخ</TableHead>
+                <TableHead className="text-center">الوقت</TableHead>
                 <TableHead className="text-center">الإجراءات</TableHead>
               </TableRow>
             </TableHeader>
@@ -104,8 +113,9 @@ const GroupLessons = () => {
               {lessons.length > 0 ? (
                 lessons.map((lesson) => (
                   <TableRow key={lesson.id}>
-                    <TableCell>{lesson.teacherName}</TableCell>
-                    <TableCell>{lesson.lessonDateTime}</TableCell>
+                    <TableCell className="text-center">{lesson.title}</TableCell>
+                    <TableCell className="text-center">{extractDate(lesson.lessonDateTime)}</TableCell>
+                    <TableCell className="text-center">{extractTime(lesson.lessonDateTime)}</TableCell>
                     <TableCell className="text-center space-x-2 rtl:space-x-reverse">
                       <Link to={`/groups/${groupId}/lessons/${lesson.id}`}>
                         <Button variant="outline" size="icon">

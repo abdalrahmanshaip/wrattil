@@ -1,8 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Pagination } from '@/components/Shared'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import {
@@ -13,7 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { Search, Trash2 } from 'lucide-react'
+import { Search } from 'lucide-react'
 import API from '@/api'
 
 interface Student {
@@ -21,6 +19,10 @@ interface Student {
   name: string
   email: string
   phoneNumber: string
+  totalWarnings: number
+  mahadStudying: string
+  tuhfatCourseTitle: string
+  alJazariyyahCourseTitle: string
 }
 
 const StudentList = () => {
@@ -38,6 +40,7 @@ const StudentList = () => {
 
       const response = await API.get(endpoint)
       const data = response.data
+      console.log(data)
 
       setStudents(data.content || data)
       setTotalElements(data.totalElements || data.length || 0)
@@ -81,7 +84,8 @@ const StudentList = () => {
                 <TableHead className="text-right">الاسم</TableHead>
                 <TableHead className="text-right">البريد الإلكتروني</TableHead>
                 <TableHead className="text-right">رقم الهاتف</TableHead>
-                {/* <TableHead className="text-center">الإجراءات</TableHead> */}
+                <TableHead className="text-right">التحذيرات</TableHead>
+                <TableHead className="text-right">المعلومات الدراسية</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -91,16 +95,8 @@ const StudentList = () => {
                     <TableCell className="font-medium">{student.name}</TableCell>
                     <TableCell>{student.email}</TableCell>
                     <TableCell>{student.phoneNumber}</TableCell>
-                    {/* <TableCell className="text-center">
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="text-red-500"
-                        onClick={() => handleDelete(student.id)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </TableCell> */}
+                    <TableCell>{student.totalWarnings}</TableCell>
+                    <TableCell>{student.mahadStudying + ' & ' + student.tuhfatCourseTitle + ' & ' + student.alJazariyyahCourseTitle}</TableCell>
                   </TableRow>
                 ))
               ) : (

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useForm, useFieldArray, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Plus, Trash2, Eye, Loader2, Pencil } from 'lucide-react'
@@ -35,7 +35,6 @@ import {
   AlertDialogDescription,
   AlertDialogCancel,
 } from '@/components/ui/alert-dialog'
-import { groupSchema } from '@/schemas/GroupSchema'
 
 const weekdays = [
   { label: 'الاثنين', value: 'MONDAY' },
@@ -47,11 +46,26 @@ const weekdays = [
   { label: 'الأحد', value: 'SUNDAY' },
 ]
 
-
+const groupSchema = z.object({
+  title: z.string().min(1),
+  academicYearId: z.number(),
+  teacherName: z.string().min(1),
+  appointment: z.object({
+    dayOfWeek: z.string(),
+    startTime: z.string(),
+  }),
+})
 
 type GroupFormValues = z.infer<typeof groupSchema>
-interface IGroup extends GroupFormValues {
+
+interface IGroup {
   id: number
+  title: string
+  appointment: {
+    dayOfWeek: string
+    startTime: string // now "HH:mm:ss"
+  }
+  teacherName: string
 }
 
 const Groups = () => {
@@ -66,6 +80,13 @@ const Groups = () => {
   const [addLoading, setAddLoading] = useState(false)
   const [editLoading, setEditLoading] = useState(false)
   const [deleteLoadingId, setDeleteLoadingId] = useState<number | null>(null)
+
+  // Convert "HH:mm" -> "HH:mm:ss"
+  const toBackendTime = (time: string) => `${time}:00`
+
+  // Convert "HH:mm:ss" -> "HH:mm"
+  const fromBackendTime = (time: string) => time.slice(0, 5)
+
 
   const fetchGroups = async () => {
     setLoading(true)
@@ -89,77 +110,86 @@ const Groups = () => {
     resolver: zodResolver(groupSchema),
     defaultValues: {
       title: '',
+      teacherName: '',
       academicYearId: academicYearIdNum,
-      appointments: [{ dayOfWeek: 'MONDAY', startTime: '' }],
+      appointment: { dayOfWeek: 'MONDAY', startTime: '00:00' },
     },
-  })
-
-  const addAppointments = useFieldArray({
-    control: addForm.control,
-    name: 'appointments',
   })
 
   const editForm = useForm<GroupFormValues>({
     resolver: zodResolver(groupSchema),
     defaultValues: {
       title: '',
+      teacherName: '',
       academicYearId: academicYearIdNum,
-      appointments: [],
+      appointment: { dayOfWeek: 'MONDAY', startTime: '00:00' },
     },
   })
 
-  const editAppointments = useFieldArray({
-    control: editForm.control,
-    name: 'appointments',
-  })
-
   const onAddSubmit: SubmitHandler<GroupFormValues> = async (data) => {
-    setAddLoading(true)
-    try {
-      await API.post('/groups', data)
-      toast.success('تمت إضافة المجموعة')
-      setAddOpen(false)
-      await fetchGroups()
-      addForm.reset({
-        title: '',
-        academicYearId: academicYearIdNum,
-        appointments: [{ dayOfWeek: 'MONDAY', startTime: '' }],
-      })
-    } catch {
-      toast.error('فشل في الإضافة')
-    } finally {
-      setAddLoading(false)
-    }
+  setAddLoading(true)
+  try {
+    await API.post('/groups', {
+      title: data.title,
+      academicYearId: data.academicYearId,
+      teacherName: data.teacherName,
+      appointment: {
+        dayOfWeek: data.appointment.dayOfWeek,
+        startTime: toBackendTime(data.appointment.startTime),
+      },
+    })
+    toast.success('تمت إضافة المجموعة')
+    setAddOpen(false)
+    await fetchGroups()
+    addForm.reset({
+      title: '',
+      academicYearId: academicYearIdNum,
+      appointment: { dayOfWeek: 'MONDAY', startTime: '00:00' },
+    })
+  } catch {
+    toast.error('فشل في الإضافة')
+  } finally {
+    setAddLoading(false)
   }
+}
+
+const onEditSubmit: SubmitHandler<GroupFormValues> = async (data) => {
+  if (!editGroup) return
+  setEditLoading(true)
+  try {
+    await API.put('/groups', {
+      groupId: editGroup.id,
+      title: data.title,
+      teacherName: data.teacherName,
+      appointment: {
+        dayOfWeek: data.appointment.dayOfWeek,
+        startTime: toBackendTime(data.appointment.startTime),
+      },
+    })
+    toast.success('تم تعديل المجموعة')
+    setEditOpen(false)
+    await fetchGroups()
+  } catch {
+    toast.error('فشل في التعديل')
+  } finally {
+    setEditLoading(false)
+  }
+}
 
   const openEdit = (group: IGroup) => {
     setEditGroup(group)
     editForm.reset({
       title: group.title,
       academicYearId: academicYearIdNum,
-      appointments: group.appointments,
+      teacherName: group.teacherName,
+      appointment: {
+        dayOfWeek: group.appointment.dayOfWeek,
+        startTime: fromBackendTime(group.appointment.startTime),
+      },
     })
     setEditOpen(true)
   }
 
-  const onEditSubmit: SubmitHandler<GroupFormValues> = async (data) => {
-    if (!editGroup) return
-    setEditLoading(true)
-    try {
-      await API.put('/groups', {
-        groupId: editGroup.id,
-        title: data.title,
-        appointments: data.appointments,
-      })
-      toast.success('تم تعديل المجموعة')
-      setEditOpen(false)
-      await fetchGroups()
-    } catch {
-      toast.error('فشل في التعديل')
-    } finally {
-      setEditLoading(false)
-    }
-  }
 
   const handleDelete = async (id: number) => {
     setDeleteLoadingId(id)
@@ -176,6 +206,7 @@ const Groups = () => {
 
   return (
     <div className="space-y-6">
+      {/* Add Dialog */}
       <Dialog open={addOpen} onOpenChange={setAddOpen}>
         <DialogTrigger asChild>
           <Button className="text-lg bg-our-orange text-white py-8 rounded-xl w-full md:w-fit">
@@ -196,43 +227,31 @@ const Groups = () => {
                   <FormMessage />
                 </FormItem>
               )} />
-
-              {addAppointments.fields.map((item, index) => (
-                <div key={item.id} className="flex gap-2 items-end">
-                  <FormField
-                    control={addForm.control}
-                    name={`appointments.${index}.dayOfWeek`}
-                    render={({ field }) => (
-                      <FormItem className="flex-1">
-                        <FormLabel>اليوم</FormLabel>
-                        <FormControl>
-                          <select {...field} className="input w-full">
-                            {weekdays.map((day) => (
-                              <option key={day.value} value={day.value}>{day.label}</option>
-                            ))}
-                          </select>
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={addForm.control}
-                    name={`appointments.${index}.startTime`}
-                    render={({ field }) => (
-                      <FormItem className="flex-1">
-                        <FormLabel>الوقت</FormLabel>
-                        <FormControl>
-                          <Input type="time" {...field} />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                  <Button type="button" variant="ghost" onClick={() => addAppointments.remove(index)}>
-                    <Trash2 size={18} />
-                  </Button>
-                </div>
-              ))}
-              <Button type="button" onClick={() => addAppointments.append({ dayOfWeek: 'MONDAY', startTime: '' })}>+ موعد</Button>
+              <FormField control={addForm.control} name="teacherName" render={({ field }) => (
+                <FormItem>
+                  <FormLabel>اسم المعلم</FormLabel>
+                  <FormControl><Input {...field} /></FormControl>
+                  <FormMessage />
+                </FormItem>
+              )} />
+              <FormField control={addForm.control} name="appointment.dayOfWeek" render={({ field }) => (
+                <FormItem>
+                  <FormLabel>اليوم</FormLabel>
+                  <FormControl>
+                    <select {...field} className="input w-full">
+                      {weekdays.map((day) => (
+                        <option key={day.value} value={day.value}>{day.label}</option>
+                      ))}
+                    </select>
+                  </FormControl>
+                </FormItem>
+              )} />
+              <FormField control={addForm.control} name="appointment.startTime" render={({ field }) => (
+                <FormItem>
+                  <FormLabel>الوقت</FormLabel>
+                  <FormControl><Input type="time" {...field} /></FormControl>
+                </FormItem>
+              )} />
               <Button type="submit" className="w-full bg-our-orange text-white" disabled={addLoading}>
                 {addLoading ? 'جاري الإضافة...' : 'إضافة'}
               </Button>
@@ -241,6 +260,7 @@ const Groups = () => {
         </DialogContent>
       </Dialog>
 
+      {/* Edit Dialog */}
       <Dialog open={editOpen} onOpenChange={setEditOpen}>
         <DialogContent dir="rtl">
           <DialogHeader>
@@ -256,43 +276,31 @@ const Groups = () => {
                   <FormMessage />
                 </FormItem>
               )} />
-
-              {editAppointments.fields.map((item, index) => (
-                <div key={item.id} className="flex gap-2 items-end">
-                  <FormField
-                    control={editForm.control}
-                    name={`appointments.${index}.dayOfWeek`}
-                    render={({ field }) => (
-                      <FormItem className="flex-1">
-                        <FormLabel>اليوم</FormLabel>
-                        <FormControl>
-                          <select {...field} className="input w-full">
-                            {weekdays.map((day) => (
-                              <option key={day.value} value={day.value}>{day.label}</option>
-                            ))}
-                          </select>
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={editForm.control}
-                    name={`appointments.${index}.startTime`}
-                    render={({ field }) => (
-                      <FormItem className="flex-1">
-                        <FormLabel>الوقت</FormLabel>
-                        <FormControl>
-                          <Input type="time" {...field} />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                  <Button type="button" variant="ghost" onClick={() => editAppointments.remove(index)}>
-                    <Trash2 size={18} />
-                  </Button>
-                </div>
-              ))}
-              <Button type="button" onClick={() => editAppointments.append({ dayOfWeek: 'MONDAY', startTime: '' })}>+ موعد</Button>
+              <FormField control={editForm.control} name="teacherName" render={({ field }) => (
+                <FormItem>
+                  <FormLabel>اسم المعلم</FormLabel>
+                  <FormControl><Input {...field} /></FormControl>
+                  <FormMessage />
+                </FormItem>
+              )} />              
+              <FormField control={editForm.control} name="appointment.dayOfWeek" render={({ field }) => (
+                <FormItem>
+                  <FormLabel>اليوم</FormLabel>
+                  <FormControl>
+                    <select {...field} className="input w-full">
+                      {weekdays.map((day) => (
+                        <option key={day.value} value={day.value}>{day.label}</option>
+                      ))}
+                    </select>
+                  </FormControl>
+                </FormItem>
+              )} />
+              <FormField control={editForm.control} name="appointment.startTime" render={({ field }) => (
+                <FormItem>
+                  <FormLabel>الوقت</FormLabel>
+                  <FormControl><Input type="time" {...field} /></FormControl>
+                </FormItem>
+              )} />
               <Button type="submit" className="w-full bg-our-orange text-white" disabled={editLoading}>
                 {editLoading ? 'جاري التعديل...' : 'تعديل'}
               </Button>
