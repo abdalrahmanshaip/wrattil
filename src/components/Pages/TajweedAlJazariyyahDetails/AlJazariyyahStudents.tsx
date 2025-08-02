@@ -9,7 +9,7 @@ import {
   Card,
   CardContent,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from '@/components/ui/card'
 import {
   Table,
@@ -53,8 +53,8 @@ const AddStudentSchema = z.object({
   studentEmail: z.string().email('يرجى إدخال بريد إلكتروني صحيح'),
 })
 
-const TajweedStudents = () => {
-  const { tajweedId } = useParams<{ tajweedId: string }>()
+const AlJazariyyahStudents = () => {
+  const { alJazariyyahCourseId } = useParams<{ alJazariyyahCourseId: string }>()
   const [students, setStudents] = useState<Student[]>([])
   const [loading, setLoading] = useState(true)
   const [deleteLoadingId, setDeleteLoadingId] = useState<number | null>(null)
@@ -69,24 +69,24 @@ const TajweedStudents = () => {
   const fetchStudents = async () => {
     setLoading(true)
     try {
-      const res = await API.get(`/tajweed-training/${tajweedId}/students`)
+      const res = await API.get(`/al-jazariyyah-courses/${alJazariyyahCourseId}/students`)
       setStudents(res.data)
     } catch (error) {
-      toast.error('فشل في تحميل الطلاب')
+      console.error('Error fetching students:', error)
     } finally {
       setLoading(false)
     }
   }
 
   useEffect(() => {
-    if (tajweedId) fetchStudents()
-  }, [tajweedId])
+    if (alJazariyyahCourseId) fetchStudents()
+  }, [alJazariyyahCourseId])
 
   const handleDelete = async (studentId: number) => {
     setDeleteLoadingId(studentId)
     setIsDeleting(true)
     try {
-      await API.delete(`/tajweed-training/${tajweedId}/students/${studentId}`)
+      await API.delete(`/al-jazariyyah-courses/${alJazariyyahCourseId}/students/${studentId}`)
       setStudents((prev) => prev.filter((s) => s.id !== studentId))
       toast.success('تم حذف الطالب بنجاح')
     } catch (error) {
@@ -100,7 +100,7 @@ const TajweedStudents = () => {
   const onSubmit = async (data: z.infer<typeof AddStudentSchema>) => {
     setIsAdding(true)
     try {
-      await API.post(`/tajweed-training/${tajweedId}/students`, data)
+      await API.post(`/al-jazariyyah-courses/${alJazariyyahCourseId}/students`, data)
       form.reset()
       toast.success('تمت إضافة الطالب بنجاح')
       fetchStudents()
@@ -115,7 +115,7 @@ const TajweedStudents = () => {
     <Card dir="rtl">
       <CardHeader>
         <div className="flex justify-between items-center">
-          <CardTitle className="text-2xl">طلبة تدريب التجويد</CardTitle>
+          <CardTitle className="text-2xl">طلبة المجموعة</CardTitle>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
@@ -126,7 +126,7 @@ const TajweedStudents = () => {
                 name="studentEmail"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>إضافة طالب</FormLabel>
+                    <FormLabel>إضافة طالب إلى المجموعة</FormLabel>
                     <FormControl>
                       <Input
                         type="email"
@@ -192,7 +192,7 @@ const TajweedStudents = () => {
                             <AlertDialogHeader>
                               <AlertDialogTitle>تأكيد الحذف</AlertDialogTitle>
                               <AlertDialogDescription>
-                                هل تريد حذف هذا الطالب؟ لا يمكن التراجع.
+                                هل تريد حذف هذا الطالب من المجموعة؟ لا يمكن التراجع.
                               </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>
@@ -230,4 +230,4 @@ const TajweedStudents = () => {
   )
 }
 
-export default TajweedStudents
+export default AlJazariyyahStudents

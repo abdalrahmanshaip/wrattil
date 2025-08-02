@@ -1,9 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import GroupStudents from './GroupStudents'
-import GroupLessons from './GroupLessons/GroupLessons'
-import GroupWeeklyReport from './GroupWeeklyReport'
+import TuhfatStudents from './TuhfatStudents'
+import TuhfatLessons from './TuhfatLessons/TuhfatLessons'
 
-const GroupDetailsTabs = () => {
+const TuhfatDetailsTabs = () => {
   return (
     <div className="container py-8 mx-auto">
       <h1 className="text-3xl font-medium text-right mb-6">تفاصيل المجموعة</h1>
@@ -22,29 +21,18 @@ const GroupDetailsTabs = () => {
           >
             طلبة
           </TabsTrigger>
-
-          <TabsTrigger
-            value="reports"
-            className="data-[state=active]:bg-our-orange data-[state=active]:text-white bg-gray-200 text-black py-3"
-          >
-            تقارير
-          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="lessons" className="mt-6">
-          <GroupLessons />
+          <TuhfatLessons />
         </TabsContent>
 
         <TabsContent value="students" className="mt-6">
-          <GroupStudents />
-        </TabsContent>
-
-        <TabsContent value="reports" className="mt-6">
-          <GroupWeeklyReport />
+          <TuhfatStudents />
         </TabsContent>
       </Tabs>
     </div>
   )
 }
 
-export default GroupDetailsTabs
+export default TuhfatDetailsTabs

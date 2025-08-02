@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
 import {
   Table,
   TableBody,
@@ -22,7 +21,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Search, Loader2, Pencil, Trash2, ListOrdered } from 'lucide-react'
+import { Loader2, Pencil, Trash2, ListOrdered } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import API from '@/api'
 import ExamForm from './ExamForm'
@@ -33,6 +32,7 @@ interface Exam {
   title: string
   description: string
   grade: number
+  fraction: number
   examDate: string
   academicYear: IAcademicYear 
 }
@@ -125,8 +125,8 @@ const ExamList = () => {
                 <TableHead className="text-right">الاسم</TableHead>
                 <TableHead className="text-right">الوصف</TableHead>
                 <TableHead className="text-right">الدرجة</TableHead>
+                <TableHead className="text-right">النسبة من الدرحة</TableHead>
                 <TableHead className="text-center">التاريخ</TableHead>
-                <TableHead className="text-center">العام الدراسي</TableHead>
                 <TableHead className="text-center">الإجراءات</TableHead>
               </TableRow>
             </TableHeader>
@@ -137,8 +137,8 @@ const ExamList = () => {
                     <TableCell>{exam.title}</TableCell>
                     <TableCell>{exam.description}</TableCell>
                     <TableCell>{exam.grade}</TableCell>
+                    <TableCell>{exam.fraction}</TableCell>
                     <TableCell>{exam.examDate}</TableCell>
-                    <TableCell>{exam.academicYear.title}</TableCell>
                     <TableCell className="text-center space-x-2 rtl:space-x-reverse">
                       <Link to={`/exams/${exam.id}/grades`}>
                         <Button variant="outline" size="icon">

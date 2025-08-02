@@ -17,7 +17,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { ExamSchema, defaultExamValues } from '@/schemas/ExamSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
 import API from '@/api'
@@ -30,20 +30,9 @@ interface ExamFormProps {
   onCancel: () => void
 }
 
-interface Track {
-  id: number
-  title: string
-}
-
-interface AcademicYear {
-  id: number
-  title: string
-}
 
 const ExamForm = ({ initialData, onSuccess, onCancel }: ExamFormProps) => {
   const [isLoading, setIsLoading] = useState(false)
-  const [tracks, setTracks] = useState<Track[]>([])
-  const [academicYears, setAcademicYears] = useState<AcademicYear[]>([])
 
   const form = useForm<FormData>({
     resolver: zodResolver(ExamSchema),
@@ -53,35 +42,9 @@ const ExamForm = ({ initialData, onSuccess, onCancel }: ExamFormProps) => {
     },
   })
 
-  useEffect(() => {
-    if (initialData) {
-      form.reset(initialData)
-    } else {
-      fetchTracks()
-    }
-  }, [initialData, form])
-
-  const fetchTracks = async () => {
-    try {
-      const response = await API.get('/quran-tracks')
-      setTracks(response.data)
-    } catch (error) {
-      console.error('Error fetching tracks:', error)
-    }
-  }
-
-  const fetchAcademicYears = async (trackId: number) => {
-    try {
-      const response = await await API.get('/academic-years', {
-        params: { quranTrackId: trackId },
-      })
-      setAcademicYears(response.data)
-    } catch (error) {
-      console.error('Error fetching academic years:', error)
-    }
-  }
 
   const onSubmit = async (data: FormData) => {
+    console.log("2222222222")
     setIsLoading(true)
     try {
       if (initialData) {
@@ -115,62 +78,6 @@ const ExamForm = ({ initialData, onSuccess, onCancel }: ExamFormProps) => {
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-
-            {!initialData && (
-              <>
-                {/* Track Dropdown */}
-                <FormItem>
-                  <FormLabel>المسار</FormLabel>
-                  <FormControl>
-                    <select
-                      onChange={(e) => {
-                        const value = parseInt(e.target.value)
-                        if (!isNaN(value)) {
-                          fetchAcademicYears(value)
-                          form.setValue('academicYearId', 0)
-                        }
-                      }}
-                      className="w-full border border-gray-300 rounded-md p-2"
-                    >
-                      <option value="">اختر المسار</option>
-                      {tracks.map((track) => (
-                        <option key={track.id} value={track.id}>
-                          {track.title}
-                        </option>
-                      ))}
-                    </select>
-                  </FormControl>
-                </FormItem>
-
-                {/* Academic Year Dropdown */}
-                <FormField
-                  control={form.control}
-                  name="academicYearId"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>العام الدراسي</FormLabel>
-                      <FormControl>
-                        <select
-                          value={field.value || ''}
-                          onChange={(e) => field.onChange(Number(e.target.value))}
-                          disabled={academicYears.length === 0}
-                          className="w-full border border-gray-300 rounded-md p-2"
-                        >
-                          <option value="">اختر العام الدراسي</option>
-                          {academicYears.map((year) => (
-                            <option key={year.id} value={year.id}>
-                              {year.title}
-                            </option>
-                          ))}
-                        </select>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </>
-            )}
-
             <FormField
               control={form.control}
               name="title"
@@ -205,6 +112,20 @@ const ExamForm = ({ initialData, onSuccess, onCancel }: ExamFormProps) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>الدرجة</FormLabel>
+                  <FormControl>
+                    <Input type="number" placeholder="10" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+                        <FormField
+              control={form.control}
+              name="fraction"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>النسبة من الدرجة</FormLabel>
                   <FormControl>
                     <Input type="number" placeholder="10" {...field} />
                   </FormControl>

@@ -8,7 +8,7 @@ import {
   HomePage,
   QuranPage,
   TajweedPage,
-  TajweedDetailsPage,
+  TuhfatDetailsPage,
   GroupDetailsPage,
   QuranQuestionBank,
   AdminsPage,
@@ -18,6 +18,9 @@ import {
   ExamPage,
   ExamGradesPage,
   LessonDetailsPage,
+  TuhfatLessonDetailsPage,
+  AlJazariyyahDetailsPage,
+  AlJazariyyahLessonDetailsPage,
   WarningsListPage
 } from '@/Pages'
 
@@ -49,10 +52,34 @@ const router = createBrowserRouter(
         }
       />
       <Route
-        path="/tajweed/:tajweedId"
+        path="/tajweed/tuhfat/:tuhfatCourseId"
         element={
           <ProtectedRoute>
-            <TajweedDetailsPage />
+            <TuhfatDetailsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/tajweed/tuhfat/:tuhfatCourseId/lessons/:lessonId"
+        element={
+          <ProtectedRoute>
+            <TuhfatLessonDetailsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/tajweed/alJazariyyah/:alJazariyyahCourseId"
+        element={
+          <ProtectedRoute>
+            <AlJazariyyahDetailsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/tajweed/alJazariyyah/:alJazariyyahCourseId/lessons/:lessonId"
+        element={
+          <ProtectedRoute>
+            <AlJazariyyahLessonDetailsPage />
           </ProtectedRoute>
         }
       />

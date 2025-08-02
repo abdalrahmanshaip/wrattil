@@ -41,70 +41,71 @@ import { Input } from '@/components/ui/input'
 import { Trash2, Loader2 } from 'lucide-react'
 import API from '@/api'
 
-interface Admin {
+interface Student {
   id: number
   name: string
   phoneNumber: string
   email: string
+  warningCount: number
 }
 
-const AddAdminSchema = z.object({
-  adminEmail: z.string().email('يرجى إدخال بريد إلكتروني صحيح'),
+const AddStudentSchema = z.object({
+  studentEmail: z.string().email('يرجى إدخال بريد إلكتروني صحيح'),
 })
 
-const TajweedAdmins = () => {
-  const { tajweedId } = useParams<{ tajweedId: string }>()
-  const [admins, setAdmins] = useState<Admin[]>([])
+const TuhfatStudents = () => {
+  const { tuhfatCourseId } = useParams<{ tuhfatCourseId: string }>()
+  const [students, setStudents] = useState<Student[]>([])
   const [loading, setLoading] = useState(true)
   const [deleteLoadingId, setDeleteLoadingId] = useState<number | null>(null)
   const [isAdding, setIsAdding] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
 
-  const form = useForm<z.infer<typeof AddAdminSchema>>({
-    resolver: zodResolver(AddAdminSchema),
-    defaultValues: { adminEmail: '' },
+  const form = useForm<z.infer<typeof AddStudentSchema>>({
+    resolver: zodResolver(AddStudentSchema),
+    defaultValues: { studentEmail: '' },
   })
 
-  const fetchAdmins = async () => {
+  const fetchStudents = async () => {
     setLoading(true)
     try {
-      const res = await API.get(`/tajweed-training/${tajweedId}/admins`)
-      setAdmins(res.data)
+      const res = await API.get(`/tuhfat-courses/${tuhfatCourseId}/students`)
+      setStudents(res.data)
     } catch (error) {
-      console.error('Error fetching admins:', error)
+      console.error('Error fetching students:', error)
     } finally {
       setLoading(false)
     }
   }
 
   useEffect(() => {
-    if (tajweedId) fetchAdmins()
-  }, [tajweedId])
+    if (tuhfatCourseId) fetchStudents()
+  }, [tuhfatCourseId])
 
-  const handleDelete = async (adminId: number) => {
-    setDeleteLoadingId(adminId)
+  const handleDelete = async (studentId: number) => {
+    setDeleteLoadingId(studentId)
     setIsDeleting(true)
     try {
-      await API.delete(`/tajweed-training/${tajweedId}/admins/${adminId}`)
-      setAdmins((prev) => prev.filter((a) => a.id !== adminId))
-      toast.success('تم حذف المشرف بنجاح')
+      await API.delete(`/tuhfat-courses/${tuhfatCourseId}/students/${studentId}`)
+      setStudents((prev) => prev.filter((s) => s.id !== studentId))
+      toast.success('تم حذف الطالب بنجاح')
     } catch (error) {
-      toast.error('فشل في حذف المشرف')
+      toast.error('فشل في حذف الطالب')
     } finally {
       setDeleteLoadingId(null)
       setIsDeleting(false)
     }
   }
 
-  const onSubmit = async (data: z.infer<typeof AddAdminSchema>) => {
+  const onSubmit = async (data: z.infer<typeof AddStudentSchema>) => {
     setIsAdding(true)
     try {
-      await API.post(`/tajweed-training/${tajweedId}/admins`, data)
+      await API.post(`/tuhfat-courses/${tuhfatCourseId}/students`, data)
       form.reset()
-      toast.success('تمت إضافة المشرف بنجاح')
-      fetchAdmins()
+      toast.success('تمت إضافة الطالب بنجاح')
+      fetchStudents()
     } catch (error) {
-      toast.error('فشل في إضافة المشرف')
+      toast.error('فشل في إضافة الطالب')
     } finally {
       setIsAdding(false)
     }
@@ -114,7 +115,7 @@ const TajweedAdmins = () => {
     <Card dir="rtl">
       <CardHeader>
         <div className="flex justify-between items-center">
-          <CardTitle className="text-2xl">مشرفو تدريب التجويد</CardTitle>
+          <CardTitle className="text-2xl">طلبة المجموعة</CardTitle>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
@@ -122,10 +123,10 @@ const TajweedAdmins = () => {
             >
               <FormField
                 control={form.control}
-                name="adminEmail"
+                name="studentEmail"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>إضافة مشرف</FormLabel>
+                    <FormLabel>إضافة طالب إلى المجموعة</FormLabel>
                     <FormControl>
                       <Input
                         type="email"
@@ -155,20 +156,22 @@ const TajweedAdmins = () => {
               <TableHeader>
                 <TableRow>
                   <TableHead className="text-right">م</TableHead>
-                  <TableHead className="text-right">اسم المشرف</TableHead>
+                  <TableHead className="text-right">اسم الطالب</TableHead>
                   <TableHead className="text-right">رقم الهاتف</TableHead>
                   <TableHead className="text-right">الإيميل</TableHead>
+                  <TableHead className="text-right">الإنذارات</TableHead>
                   <TableHead className="text-center">الإجراءات</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {admins.length > 0 ? (
-                  admins.map((admin, index) => (
-                    <TableRow key={admin.id}>
+                {students.length > 0 ? (
+                  students.map((student, index) => (
+                    <TableRow key={student.id}>
                       <TableCell>{index + 1}</TableCell>
-                      <TableCell>{admin.name}</TableCell>
-                      <TableCell>{admin.phoneNumber}</TableCell>
-                      <TableCell>{admin.email}</TableCell>
+                      <TableCell>{student.name}</TableCell>
+                      <TableCell>{student.phoneNumber}</TableCell>
+                      <TableCell>{student.email}</TableCell>
+                      <TableCell>{student.warningCount}</TableCell>
                       <TableCell className="text-center">
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
@@ -176,9 +179,9 @@ const TajweedAdmins = () => {
                               variant="outline"
                               size="icon"
                               className="text-red-500"
-                              disabled={deleteLoadingId === admin.id || isDeleting}
+                              disabled={deleteLoadingId === student.id || isDeleting}
                             >
-                              {deleteLoadingId === admin.id ? (
+                              {deleteLoadingId === student.id ? (
                                 <Loader2 className="animate-spin h-4 w-4" />
                               ) : (
                                 <Trash2 className="h-4 w-4" />
@@ -189,17 +192,17 @@ const TajweedAdmins = () => {
                             <AlertDialogHeader>
                               <AlertDialogTitle>تأكيد الحذف</AlertDialogTitle>
                               <AlertDialogDescription>
-                                هل تريد حذف هذا المشرف؟ لا يمكن التراجع.
+                                هل تريد حذف هذا الطالب من المجموعة؟ لا يمكن التراجع.
                               </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>
                               <AlertDialogCancel>إلغاء</AlertDialogCancel>
                               <Button
                                 className="bg-red-600 text-white"
-                                onClick={() => handleDelete(admin.id)}
-                                disabled={deleteLoadingId === admin.id || isDeleting}
+                                onClick={() => handleDelete(student.id)}
+                                disabled={deleteLoadingId === student.id || isDeleting}
                               >
-                                {deleteLoadingId === admin.id ? (
+                                {deleteLoadingId === student.id ? (
                                   <Loader2 className="animate-spin h-4 w-4" />
                                 ) : (
                                   'حذف'
@@ -213,7 +216,7 @@ const TajweedAdmins = () => {
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={5} className="h-24 text-center">
+                    <TableCell colSpan={6} className="h-24 text-center">
                       لا توجد نتائج
                     </TableCell>
                   </TableRow>
@@ -227,4 +230,4 @@ const TajweedAdmins = () => {
   )
 }
 
-export default TajweedAdmins
+export default TuhfatStudents

@@ -1,6 +1,6 @@
 import HomePage from './HomePage'
 import TajweedPage from './TajweedPage'
-import TajweedDetailsPage from './TajweedDetailsPage'
+import TuhfatDetailsPage from './TuhfatDetailsPage'
 import QuranPage from './QuranPage'
 import BatchDetails from './BatchDetails'
 import GroupDetailsPage from './GroupDetailsPage'
@@ -13,11 +13,14 @@ import ExamPage from './ExamPage'
 import ExamGradesPage from './ExamGradesPage'
 import LessonDetailsPage from './LessonDetailsPage'
 import WarningsListPage from './WarningsPage'
+import TuhfatLessonDetailsPage from './TuhfatLessonDetailsPage'
+import AlJazariyyahDetailsPage from './AlJazariyyahDetailsPage'
+import AlJazariyyahLessonDetailsPage from './AlJazariyyahLessonDetailsPage'
 
 export {
   HomePage,
   TajweedPage,
-  TajweedDetailsPage,
+  TuhfatDetailsPage,
   QuranPage,
   BatchDetails,
   GroupDetailsPage,
@@ -29,5 +32,8 @@ export {
   ExamPage,
   ExamGradesPage,
   LessonDetailsPage,
+  TuhfatLessonDetailsPage,
+  AlJazariyyahDetailsPage,
+  AlJazariyyahLessonDetailsPage,
   WarningsListPage
 }

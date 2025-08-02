@@ -1,17 +1,15 @@
 import { useEffect, useState } from 'react'
-import { useForm, useFieldArray, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Eye, Pencil, Trash2 } from 'lucide-react'
+import { Pencil, Eye } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog'
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Link } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import API from '@/api'
 import { toast } from 'sonner'
-import { tajweedSchema } from '@/schemas/TajweedSchema'
-import { ITajweed } from '@/types'
 
 const weekdays = [
   { label: 'الاثنين', value: 'MONDAY' },
@@ -23,71 +21,91 @@ const weekdays = [
   { label: 'الأحد', value: 'SUNDAY' },
 ]
 
-type TajweedFormValues = z.infer<typeof tajweedSchema>
+const simpleCourseSchema = z.object({
+  title: z.string().min(1, 'مطلوب'),
+  appointment: z.object({
+    dayOfWeek: z.string().min(1, 'مطلوب'),
+    startTime: z.string().min(1, 'مطلوب'),
+  }),
+})
 
-const Tajweed = () => {
-  const [tajweeds, setTajweeds] = useState<ITajweed[]>([])
+type SimpleCourseForm = z.infer<typeof simpleCourseSchema>
+
+type TajweedCourse = SimpleCourseForm & {
+  id: number // from API
+}
+
+export default function Tajweed() {
+  const [jazariyyah, setJazariyyah] = useState<TajweedCourse | null>(null)
+  const [tuhfat, setTuhfat] = useState<TajweedCourse | null>(null)
   const [loading, setLoading] = useState(true)
   const [editOpen, setEditOpen] = useState(false)
-  const [editTajweed, setEditTajweed] = useState<ITajweed | null>(null)
+  const [editCourse, setEditCourse] = useState<'JAZARIYYAH' | 'TUHFAT' | null>(null)
   const [editLoading, setEditLoading] = useState(false)
 
-  const fetchTajweeds = async () => {
+  const editForm = useForm<SimpleCourseForm>({
+    resolver: zodResolver(simpleCourseSchema),
+    defaultValues: {
+      title: '',
+      appointment: {
+        dayOfWeek: 'MONDAY',
+        startTime: '',
+      },
+    },
+  })
+
+  const fetchCourses = async () => {
     setLoading(true)
     try {
-      const res = await API.get('/tajweed-training')
-      setTajweeds(res.data)
+      const [jazRes, tuhRes] = await Promise.all([
+        API.get('/al-jazariyyah-courses'),
+        API.get('/tuhfat-courses'),
+      ])
+      setJazariyyah(jazRes.data)
+      setTuhfat(tuhRes.data)
     } catch {
-      toast.error('فشل في تحميل البيانات')
+      toast.error('فشل تحميل الدورات')
     } finally {
       setLoading(false)
     }
   }
 
   useEffect(() => {
-    fetchTajweeds()
+    fetchCourses()
   }, [])
 
-  const editForm = useForm<TajweedFormValues>({
-    resolver: zodResolver(tajweedSchema),
-    defaultValues: {
-      title: '',
-      appointments: [],
-    },
-  })
-
-  const editAppointments = useFieldArray({
-    control: editForm.control,
-    name: 'appointments',
-  })
-
-  const openEdit = (tajweed: ITajweed) => {
-    const formattedAppointments = tajweed.appointments.map((a) => ({
-      dayOfWeek: a.dayOfWeek,
-      startTime: a.startTime.slice(0, 5) // Ensures it's in HH:mm
-    }))
-
-    setEditTajweed(tajweed)
+  const openEdit = (type: 'JAZARIYYAH' | 'TUHFAT') => {
+    const course = type === 'JAZARIYYAH' ? jazariyyah : tuhfat
+    if (!course) return
     editForm.reset({
-      title: tajweed.title,
-      appointments: formattedAppointments
+      title: course.title,
+      appointment: {
+        dayOfWeek: course.appointment.dayOfWeek,
+        startTime: course.appointment.startTime.slice(0, 5),
+      },
     })
+    setEditCourse(type)
     setEditOpen(true)
   }
 
-
-  const onEditSubmit: SubmitHandler<TajweedFormValues> = async (data) => {
-    if (!editTajweed) return
+  const onSubmit: SubmitHandler<SimpleCourseForm> = async (data) => {
+    if (!editCourse) return
     setEditLoading(true)
     try {
-      await API.put('/tajweed-training', {
-        tajweedTrainingId: editTajweed.tajweedTrainingId,
-        title: data.title,
-        appointments: data.appointments,
-      })
+      const endpoint =
+        editCourse === 'JAZARIYYAH'
+          ? '/al-jazariyyah-courses'
+          : '/tuhfat-courses'
+
+      const body = {
+        ...data,
+      [editCourse === 'JAZARIYYAH' ? 'alJazariyyahCourseId' : 'tuhfatCourseId']:
+        editCourse === 'JAZARIYYAH' ? jazariyyah!.id : tuhfat!.id,
+      }    
+      await API.put(endpoint, body)
       toast.success('تم التعديل بنجاح')
       setEditOpen(false)
-      fetchTajweeds()
+      fetchCourses()
     } catch {
       toast.error('فشل في التعديل')
     } finally {
@@ -100,11 +118,11 @@ const Tajweed = () => {
       <Dialog open={editOpen} onOpenChange={setEditOpen}>
         <DialogContent dir="rtl">
           <DialogHeader>
-            <DialogTitle>تعديل تدريب التجويد</DialogTitle>
-            <DialogDescription>قم بتحديث التفاصيل</DialogDescription>
+            <DialogTitle>تعديل الدورة</DialogTitle>
+            <DialogDescription>قم بتحديث البيانات الخاصة بالدورة</DialogDescription>
           </DialogHeader>
           <Form {...editForm}>
-            <form onSubmit={editForm.handleSubmit(onEditSubmit)} className="space-y-4">
+            <form onSubmit={editForm.handleSubmit(onSubmit)} className="space-y-4">
               <FormField control={editForm.control} name="title" render={({ field }) => (
                 <FormItem>
                   <FormLabel>العنوان</FormLabel>
@@ -112,35 +130,28 @@ const Tajweed = () => {
                   <FormMessage />
                 </FormItem>
               )} />
-
-              {editAppointments.fields.map((item, index) => (
-                <div key={item.id} className="flex gap-2 items-end">
-                  <FormField control={editForm.control} name={`appointments.${index}.dayOfWeek`} render={({ field }) => (
-                    <FormItem className="flex-1">
-                      <FormLabel>اليوم</FormLabel>
-                      <FormControl>
-                        <select {...field} className="input w-full">
-                          {weekdays.map((day) => (
-                            <option key={day.value} value={day.value}>{day.label}</option>
-                          ))}
-                        </select>
-                      </FormControl>
-                    </FormItem>
-                  )} />
-                  <FormField control={editForm.control} name={`appointments.${index}.startTime`} render={({ field }) => (
-                    <FormItem className="flex-1">
-                      <FormLabel>الوقت</FormLabel>
-                      <FormControl>
-                        <Input type="time" {...field} />
-                      </FormControl>
-                    </FormItem>
-                  )} />
-                  <Button type="button" variant="ghost" onClick={() => editAppointments.remove(index)}>
-                    <Trash2 size={18} />
-                  </Button>
-                </div>
-              ))}
-              <Button type="button" onClick={() => editAppointments.append({ dayOfWeek: 'MONDAY', startTime: '' })}>+ موعد</Button>
+              <FormField control={editForm.control} name="appointment.dayOfWeek" render={({ field }) => (
+                <FormItem>
+                  <FormLabel>اليوم</FormLabel>
+                  <FormControl>
+                    <select {...field} className="input w-full">
+                      {weekdays.map((day) => (
+                        <option key={day.value} value={day.value}>{day.label}</option>
+                      ))}
+                    </select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )} />
+              <FormField control={editForm.control} name="appointment.startTime" render={({ field }) => (
+                <FormItem>
+                  <FormLabel>الوقت</FormLabel>
+                  <FormControl>
+                    <Input type="time" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )} />
               <Button type="submit" className="w-full bg-our-orange text-white" disabled={editLoading}>
                 {editLoading ? 'جاري التعديل...' : 'تعديل'}
               </Button>
@@ -150,23 +161,45 @@ const Tajweed = () => {
       </Dialog>
 
       {loading ? <p>جاري التحميل...</p> : (
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
-          {tajweeds.map((tajweed) => (
-            <div key={tajweed.tajweedTrainingId} className="bg-white p-6 rounded-xl flex items-center justify-between shadow-sm">
-              <p className="font-medium text-xl text-gray-800">{tajweed.title}</p>
-              <div className="flex gap-1.5">
-                <Button className="bg-our-white-200 rounded-full" size="icon" asChild>
-                  <Link to={`/tajweed/${tajweed.tajweedTrainingId}`}><Eye size={20} /></Link>
+        <div className="grid lg:grid-cols-2 gap-4">
+          {jazariyyah && (
+            <div className="bg-white p-6 rounded-xl flex justify-between items-center shadow-sm">
+              <div>
+                <p className="font-bold text-xl text-gray-800">{jazariyyah.title}</p>
+                <p className="text-sm text-gray-500">{weekdays.find(w => w.value === jazariyyah.appointment.dayOfWeek)?.label} - {jazariyyah.appointment.startTime}</p>
+              </div>
+              <div className="flex gap-2">
+                <Link to={`/tajweed/alJazariyyah/${jazariyyah.id}`}>
+                  <Button className="bg-our-white-200 rounded-full" size="icon">
+                    <Eye size={20} />
+                  </Button>
+                </Link>
+                <Button className="bg-our-white-200 rounded-full" size="icon" onClick={() => openEdit('JAZARIYYAH')}>
+                  <Pencil size={20} />
                 </Button>
-                <Button className="bg-our-white-200 rounded-full" size="icon" onClick={() => openEdit(tajweed)}>
-                  <Pencil size={20} /></Button>
               </div>
             </div>
-          ))}
+          )}
+          {tuhfat && (
+            <div className="bg-white p-6 rounded-xl flex justify-between items-center shadow-sm">
+              <div>
+                <p className="font-bold text-xl text-gray-800">{tuhfat.title}</p>
+                <p className="text-sm text-gray-500">{weekdays.find(w => w.value === tuhfat.appointment.dayOfWeek)?.label} - {tuhfat.appointment.startTime}</p>
+              </div>
+              <div className="flex gap-2">
+                 <Link to={`/tajweed/tuhfat/${tuhfat.id}`}>
+                  <Button className="bg-our-white-200 rounded-full" size="icon">
+                    <Eye size={20} />
+                  </Button>
+                </Link>
+                <Button className="bg-our-white-200 rounded-full" size="icon" onClick={() => openEdit('TUHFAT')}>
+                  <Pencil size={20} />
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
   )
 }
-
-export default Tajweed
